@@ -1,0 +1,16 @@
+http://youtube.com/c/Holistic3d
+https://holistic3d.com/
+
+Where can I get my models, textures and animations?
+    www.textures.com
+    www.turbosquid.com
+    www.mixamo.com
+    Unity Asset Store
+
+What animation and modelling software do you use?
+I use Autodesk Maya.  You can obtain a free fully functioning educational version of it from: https://www.autodesk.com/education/free-software/maya
+
+
+What text editor do you use?
+I use Sublime Text. You can download it for PC or Mac from Sublime.com. To set it up for use in Unity, 
+select Unity > Preferences from the main menu and then locate the External Tools tab. Set the External Script Editor to Sublime Text.
