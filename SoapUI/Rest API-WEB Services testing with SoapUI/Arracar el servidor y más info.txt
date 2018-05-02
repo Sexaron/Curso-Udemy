@@ -1,0 +1,4 @@
+F:\Cursos Udemy\SoapUI\Rest API-WEB Services testing with SoapUI>java -jar -Dserver.port=8081 soap-services-1.0.0.jar
+
+Swagger Petstore -> http://petstore.swagger.io/# 
+	Para practicar con llamadas REST
