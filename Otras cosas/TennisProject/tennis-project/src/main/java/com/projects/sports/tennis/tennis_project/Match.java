@@ -1,29 +1,69 @@
 package com.projects.sports.tennis.tennis_project;
 
+
 public class Match {
 
 	/**
 	 * Definimos las variables usadas en la clase
 	**/
 	
-	public final static int NUM_DE_SETS_POR_PARTIDO = 3; 
 	public final int LCLset = 0;
 	public final int VSTset = 0;
 	public final static String resultado = "";
+	public int i = 0;
+	String setTotal[];
+	public int setsWonByLCL = 0;
+	public int setsWonByVST = 0;
 	
+	//public final static String setTotal[] = new String[Application.NUM_SETS];
 	
-	public static String getResultado()
+	public Match()
 	{
-		return "";
+		setTotal = new String[Application.NUM_SETS];
+		i = 0;
+		setsWonByLCL = 0;
+		setsWonByVST = 0;
 	}
 	
-	public static void setResultado()
+	
+	public String getSet(int i)
 	{
-		
+		return this.setTotal[i];
 	}
 	
-	public static void updateSets(Set set){
-		
+	public void updateSets(Set set){
+		if (  setTotal[i] == null && i < Application.NUM_SETS )
+		{
+			if ( Application.partidoTerminado == false ){
+				//Application.print(setTotal[i]);
+				setTotal[i] = ("Set " + (i+1) + ": " + set.psetLCL + "-" + set.psetVST);
+				//Application.print(setTotal[i]);
+				i++;
+			}else
+			{
+				set.setSetLCL(0);
+				set.setSetVST(0);
+				setTotal[i] = ("Set " + (i+1) + ": " + set.psetLCL + "-" + set.psetVST);
+				i++;
+			}
+		}
 	}
+	
+	public void setSetsWonByLCL(){
+		setsWonByLCL++;
+	}
+	
+	public int getSetsWonByLCL(){
+		return setsWonByLCL;
+	}
+	
+	public void setSetsWonByVST(){
+		setsWonByVST++;
+	}
+	
+	public int getSetsWonByVST(){
+		return setsWonByVST;
+	}
+
 		
 }
