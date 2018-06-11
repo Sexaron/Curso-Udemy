@@ -219,23 +219,14 @@ public class Application
   //************************************************************************************** 
    
   //************************************************************************************ 
-    private static void calculoEstadisticasPartidos() {
-    	Map<String, Integer> listSets = new HashMap<String, Integer>();
-    	listSets.forEach((k,v) -> System.out.println("Key: " + k + ": Value: " + v));
-    	/*for ( Match partido: arrayPartidos )
-    	{
-    		for ( Set set: arraySets)
-    		{
-    			for ( Match compPartido: arrayPartidos)
-    			{
-    				
-    			}
-    		}
-    	}*/
-    	
-    	probVictoria();
+    /**
+     * Calculo de todas las probabilidades
+     */
+    private static void calculoEstadisticasPartidos() 
+    {
+       	probVictoria();
     	probRestuladoDePartido();
-			
+		probResultadosExactos();
 	}
 	//************************************************************************************** 
 	
@@ -389,6 +380,26 @@ public class Application
 		  }
 		  
 	  }
+	//************************************************************************************** 
+		
+	//************************************************************************************ 
+		  
+		  /**
+		   * Calculo de la probabilidad de que se produzca un resultado.
+		  */
+		  public static void probResultadosExactos()
+		  {
+			  int auxpsetLCL = 0;
+			  int auxpsetVST = 0;
+			  
+			  for( int i=0; i<NUM_PARTIDOS; i++ )
+			  {
+				  for( int j=0; j<NUM_SETS; j++ )
+				  {
+					 //auxpsetLCL = arrayPartidos[i].setTotal[j];
+				  }
+			  }
+		  }
 }
 
 
