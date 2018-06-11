@@ -14,6 +14,8 @@ public class Match {
 	String setTotal[];
 	public int setsWonByLCL = 0;
 	public int setsWonByVST = 0;
+	public int wonLCL = 0;
+	public int wonVST = 0;
 	
 	//public final static String setTotal[] = new String[Application.NUM_SETS];
 	
@@ -23,6 +25,8 @@ public class Match {
 		i = 0;
 		setsWonByLCL = 0;
 		setsWonByVST = 0;
+		wonLCL = 0;
+		wonVST = 0;
 	}
 	
 	
@@ -64,6 +68,15 @@ public class Match {
 	public int getSetsWonByVST(){
 		return setsWonByVST;
 	}
+	
+	public void setWonLCL(){
+		wonLCL++;		
+	}
+	
+	public void setWonVST(){
+		wonVST++;
+	}
+
 
 		
 }

@@ -1,5 +1,9 @@
 package com.projects.sports.tennis.tennis_project;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -7,17 +11,28 @@ import java.util.Map;
 public class Application 
 {
 	//VARIABLES
-	final static int NUM_PARTIDOS = 1000; 
-	final static int NUM_SETS = 5;
+	static Integer NUM_PARTIDOS = 0;
+	static Integer NUM_SETS = 0;
 	static int puntoLCL, juegoLCL;
 	static int puntoVST, juegoVST;
 	static boolean partidoTerminado = false;
+	static DecimalFormat df = new DecimalFormat("#.00");
 	
-	public static Match arrayPartidos[] = new Match[NUM_PARTIDOS];
-	public static Set arraySets[] = new Set[NUM_SETS];
+	//public static Match arrayPartidos[] = new Match[NUM_PARTIDOS];
+	public static Match arrayPartidos[];
+	//public static Set arraySets[] = new Set[NUM_SETS];
+	public static Set arraySets[];
 	
-    public static void main( String[] args )
+    public static void main( String[] args ) throws IllegalArgumentException, IOException
     {
+    	BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    	System.out.println("Número de partidos a simular");
+    	NUM_PARTIDOS = Integer.parseInt(br.readLine());
+    	System.out.println("Número de SETS por partido - ¿3 o 5?");
+    	NUM_SETS = Integer.parseInt(br.readLine());
+    	arrayPartidos = new Match[NUM_PARTIDOS];
+    	arraySets = new Set[NUM_SETS];
+    	
     	//Application.print("//--------------Entra en el main");
     	simStart();
     	calculoEstadisticasPartidos();
@@ -41,15 +56,26 @@ public class Application
 				{
 					Set set = new Set();
 					calculoSet(partido, set);
-					arraySets[j] = set;
+					arraySets[j] = set; //diria q no sirve para nada de momento arraySets
 					partido.updateSets(set); //hay q ver como metemos los sets al partido.
 				}else
 				{
-					partidoTerminado = true;
+					partidoTerminado = true;					
 					Set set = new Set();
 					partido.updateSets(set);					
 				}
 			}
+			
+			if ( partido.setsWonByLCL > partido.setsWonByVST )
+			{
+				partido.setWonLCL();
+			}else if( partido.setsWonByLCL < partido.setsWonByVST )
+			{
+				partido.setWonVST();
+			}else
+			{
+				Application.print("//-------------ERROR: no ha ganado nadie.");
+			}			
 			arrayPartidos[i] = partido;
         }
 				
@@ -206,10 +232,164 @@ public class Application
     			}
     		}
     	}*/
+    	
+    	probVictoria();
+    	probRestuladoDePartido();
 			
 	}
+	//************************************************************************************** 
+	
+	//************************************************************************************ 
+	  
+	  /**
+	   * Calculo de la probabilidad de que gane uno u otro según
+	   * los resultados de los partidos.
+	  */
+	  public static void probVictoria()
+	  {
+		  Application.print("\n\n//------PROBABILIDAD DE VICTORIA-------//");
+		  int victoriasLCL = 0;
+		  int victoriasVST = 0;
+		  double probWinLCL = 0;
+		  double probWinVST = 0;
+		  
+		  for ( int i=0; i < NUM_PARTIDOS; i++ )
+		  {			  
+			  victoriasLCL += arrayPartidos[i].wonLCL;
+			  victoriasVST += arrayPartidos[i].wonVST;
+		  }
+		  
+		  probWinLCL = (double)victoriasLCL / NUM_PARTIDOS * 100;
+		  probWinVST = (double)victoriasVST / NUM_PARTIDOS * 100;
+		  
+		  Application.print("//------Victorias del jugador LOCAL: " + victoriasLCL);
+		  Application.print("//------Victorias del jugador VISITANTE: " + victoriasVST);
+		  Application.print("//------PROBABILIDAD DE VICTORIA LOCAL: " + df.format(probWinLCL) + "%");
+		  Application.print("//------PROBABILIDAD DE VICTORIA VISITANTE: " + df.format(probWinVST) + "%");
+	  }
+	//************************************************************************************** 
+	
+	//************************************************************************************ 
+	  
+	  /**
+	   * Calculo de la probabilidad de que se produzca un resultado.
+	  */
+	  public static void probRestuladoDePartido()
+	  {
+		  Application.print("\n\n//------PROBABILIDAD DE RESULTADO-------//");		  
+		  int auxResultadoLCL, auxResultadoVST;		  
+		  
+		  if ( 5 == NUM_SETS)
+		  {
+			  int result_3_0 = 0;
+			  int result_3_1 = 0;
+			  int result_3_2 = 0;
+			  int result_0_3 = 0;
+			  int result_1_3 = 0;
+			  int result_2_3 = 0;
+			  double prob_3_0 = 0;
+			  double prob_3_1 = 0;
+			  double prob_3_2 = 0;
+			  double prob_0_3 = 0;
+			  double prob_1_3 = 0;
+			  double prob_2_3 = 0;
+			  
+			  for ( int i=0; i < NUM_PARTIDOS; i++ ) 
+			  {
+				  auxResultadoLCL = arrayPartidos[i].setsWonByLCL;
+				  auxResultadoVST = arrayPartidos[i].setsWonByVST;
+				  int auxResult = auxResultadoLCL - auxResultadoVST;			  
+				  
+				  switch (auxResult) {
+					case 3:
+						result_3_0++;
+						break;
+					case 2:
+						result_3_1++;
+						break;
+					case 1:
+						result_3_2++;
+						break;
+					case -3:
+						result_0_3++;
+						break;
+					case -2:
+						result_1_3++;
+						break;
+					case -1:
+						result_2_3++;
+						break;
+					default:
+						Application.print("Default value");
+						break;
+				} 					
+			  }	
+			  
+			    prob_3_0 = (double)result_3_0 / NUM_PARTIDOS * 100;
+				prob_3_1 = (double)result_3_1 / NUM_PARTIDOS * 100;
+				prob_3_2 = (double)result_3_2 / NUM_PARTIDOS * 100;
+				prob_0_3 = (double)result_0_3 / NUM_PARTIDOS * 100;
+				prob_1_3 = (double)result_1_3 / NUM_PARTIDOS * 100;
+				prob_2_3 = (double)result_2_3 / NUM_PARTIDOS * 100;
+				
+				Application.print("PROBABILIDAD DE UN 3-0: " + df.format(prob_3_0) + "%");
+				Application.print("PROBABILIDAD DE UN 3-1: " + df.format(prob_3_1) + "%");
+				Application.print("PROBABILIDAD DE UN 3-2: " + df.format(prob_3_2) + "%");
+				Application.print("PROBABILIDAD DE UN 0-3: " + df.format(prob_0_3) + "%");
+				Application.print("PROBABILIDAD DE UN 1-3: " + df.format(prob_1_3) + "%");
+				Application.print("PROBABILIDAD DE UN 2-3: " + df.format(prob_2_3) + "%");
+		  }else if ( 3 == NUM_SETS )
+		  {
+			  int result_2_0 = 0;
+			  int result_2_1 = 0;
+			  int result_0_2 = 0;
+			  int result_1_2 = 0;
+			  double prob_2_0 = 0;
+			  double prob_2_1 = 0;
+			  double prob_0_2 = 0;
+			  double prob_1_2 = 0;
+			  
+			  for ( int i=0; i < NUM_PARTIDOS; i++ ) 
+			  {
+				  auxResultadoLCL = arrayPartidos[i].setsWonByLCL;
+				  auxResultadoVST = arrayPartidos[i].setsWonByVST;
+				  int auxResult = auxResultadoLCL - auxResultadoVST;			  
+				  
+				  switch (auxResult) {
+					case 2:
+						result_2_0++;
+						break;
+					case 1:
+						result_2_1++;
+						break;
+					case -2:
+						result_0_2++;
+						break;
+					case -1:
+						result_1_2++;
+						break;
+					default:
+						Application.print("Default value");
+						break;
+				} 					
+			  }	
+			  
+			    prob_2_0 = (double)result_2_0 / NUM_PARTIDOS * 100;
+				prob_2_1 = (double)result_2_1 / NUM_PARTIDOS * 100;
+				prob_0_2 = (double)result_0_2 / NUM_PARTIDOS * 100;
+				prob_1_2 = (double)result_1_2 / NUM_PARTIDOS * 100;
+				
+				Application.print("PROBABILIDAD DE UN 2-0: " + df.format(prob_2_0) + "%");
+				Application.print("PROBABILIDAD DE UN 2-1: " + df.format(prob_2_1) + "%");
+				Application.print("PROBABILIDAD DE UN 0-2: " + df.format(prob_0_2) + "%");
+				Application.print("PROBABILIDAD DE UN 1-2: " + df.format(prob_1_2) + "%");
+		  }else
+		  {
+			  Application.print("//------------------ERROR: Los sets son diferentes a 3 y 5!!");
+		  }
+		  
+	  }
 }
-
 
 
 
