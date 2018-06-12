@@ -16,6 +16,7 @@ public class Application {
 	static int puntoVST, juegoVST;
 	static boolean partidoTerminado = false;
 	static DecimalFormat df = new DecimalFormat("#.00");
+	static HashMap<String, Double> hashmap = new HashMap();
 
 	// public static Match arrayPartidos[] = new Match[NUM_PARTIDOS];
 	public static Match arrayPartidos[];
@@ -146,7 +147,7 @@ public class Application {
 	public static void jugarPunto(int pLCL, int pVST) {
 		// Aquí se ejecutará todo el tema de las estadisticas.
 		double numRandom = Math.random() * 100;
-		if (numRandom < 50) {
+		if (numRandom < 75) {
 			pLCL++;
 		} else {
 			pVST++;
@@ -337,19 +338,22 @@ public class Application {
 		}
 
 	}
-	//************************************************************************************** 
-		
-	//************************************************************************************ 
-		  
-		  /**
-		   * Calculo de la probabilidad de que se produzca un resultado.
-		  */
+	// **************************************************************************************
+
+	// ************************************************************************************
+
+	/**
+	 * Calculo de la probabilidad de que se produzca un resultado.
+	 */
 	public static void probResultadosExactos(Match match[]) {
 		String auxSet1 = null;
 		String auxSet2 = null;
 		String auxSet3 = null;
+		String auxSet4 = null;
+		String auxSet5 = null;
 		int cont = 0;
 		int var = 0;
+		int aux_k = 0;
 		boolean varRepite = false;
 		ArrayList<String> resultadoPartido = new ArrayList<String>();
 
@@ -366,53 +370,161 @@ public class Application {
 				auxSet1 = resultadoPartido.get(cont);
 				auxSet2 = resultadoPartido.get(cont + 1);
 				auxSet3 = resultadoPartido.get(cont + 2);
+				// Application.print("//------auxSet1 " + auxSet1);
+				// Application.print("//------auxSet2 " + auxSet2);
+				// Application.print("//------auxSet3 " + auxSet3);
 
 				// Buscamos el set en todos los sets simulados
-				for (int k = NUM_SETS+cont; k < NUM_PARTIDOS * NUM_SETS; k++) {
-					if (k%NUM_SETS == cont%NUM_SETS){
-						if (auxSet1 == resultadoPartido.get(k) 
-								&& auxSet2 == resultadoPartido.get(k+1)
-								&& auxSet3 == resultadoPartido.get(k+2)){
-							break; //Salimos el bucle y seguimos buscando el último partido con los mismos sets						
-						}else if (k+NUM_SETS > NUM_PARTIDOS*NUM_SETS){
-							//No hemos vuelto a encontra coincidencias, por lo que este
-							//es el último partido con estos sets
-							//Aqui que hay que realizar el conteo hacia atras.
-							//desde cont hacia atrás.
-							buscamosLosSets(cont, resultadoPartido);
-						}else{
-							//Seguimos buscando
+
+				if (cont + NUM_SETS == NUM_PARTIDOS * NUM_SETS) {
+					buscamosLosSets_3(cont, resultadoPartido, auxSet1, auxSet2, auxSet3);
+				} else {
+
+					for (int k = NUM_SETS + cont; k < NUM_PARTIDOS * NUM_SETS; k++) {
+						// Application.print("//------k = NUM_SETS+cont " + k);
+						if (k % NUM_SETS == cont % NUM_SETS) {
+							// Application.print("//********************" + k);
+							// Application.print("//XXXXXXXXXXXXX k+NUM_SETS " + (k + NUM_SETS));
+							// Application.print("//XXXXXXXXXXXXX NUM_PARTIDOS*NUM_SETS " + (NUM_PARTIDOS *
+							// NUM_SETS));
+							if (auxSet1.equals(resultadoPartido.get(k)) && auxSet2.equals(resultadoPartido.get(k + 1))
+									&& auxSet3.equals(resultadoPartido.get(k + 2))) {
+								// Application.print("//------COMPROBANDO IF ");
+								break; // Salimos el bucle y seguimos buscando el último partido con los mismos sets
+							} else if (k + NUM_SETS >= NUM_PARTIDOS * NUM_SETS) {
+								// No hemos vuelto a encontra coincidencias, por lo que este
+								// es el último partido con estos sets
+								// Aqui que hay que realizar el conteo hacia atras.
+								// desde cont hacia atrás.
+								// Application.print("//------COMPROBANDO ELSE IF ");
+								buscamosLosSets_3(cont, resultadoPartido, auxSet1, auxSet2, auxSet3);
+							} else {
+								// Seguimos buscando
+								// Application.print("//------COMPROBANDO ELSE ");
+							}
 						}
 					}
+
 				}
 				cont += 3;
 			}
+		} else if (5 == NUM_SETS) {
+			for (int i = 0; i < NUM_PARTIDOS; i++) {
+				auxSet1 = resultadoPartido.get(cont);
+				auxSet2 = resultadoPartido.get(cont + 1);
+				auxSet3 = resultadoPartido.get(cont + 2);
+				auxSet4 = resultadoPartido.get(cont + 3);
+				auxSet5 = resultadoPartido.get(cont + 4);
+				// Application.print("//------auxSet1 " + auxSet1);
+				// Application.print("//------auxSet2 " + auxSet2);
+				// Application.print("//------auxSet3 " + auxSet3);
+
+				// Buscamos el set en todos los sets simulados
+
+				if (cont + NUM_SETS == NUM_PARTIDOS * NUM_SETS) {
+					buscamosLosSets_5(cont, resultadoPartido, auxSet1, auxSet2, auxSet3, auxSet4, auxSet5);
+				} else {
+
+					for (int k = NUM_SETS + cont; k < NUM_PARTIDOS * NUM_SETS; k++) {
+						// Application.print("//------k = NUM_SETS+cont " + k);
+						if (k % NUM_SETS == cont % NUM_SETS) {
+							// Application.print("//********************" + k);
+							// Application.print("//XXXXXXXXXXXXX k+NUM_SETS " + (k + NUM_SETS));
+							// Application.print("//XXXXXXXXXXXXX NUM_PARTIDOS*NUM_SETS " + (NUM_PARTIDOS *
+							// NUM_SETS));
+							if (auxSet1.equals(resultadoPartido.get(k)) && auxSet2.equals(resultadoPartido.get(k + 1))
+									&& auxSet3.equals(resultadoPartido.get(k + 2))
+									&& auxSet4.equals(resultadoPartido.get(k + 3))
+									&& auxSet5.equals(resultadoPartido.get(k + 4))) {
+								// Application.print("//------COMPROBANDO IF ");
+								break; // Salimos el bucle y seguimos buscando el último partido con los mismos sets
+							} else if (k + NUM_SETS >= NUM_PARTIDOS * NUM_SETS) {
+								// No hemos vuelto a encontra coincidencias, por lo que este
+								// es el último partido con estos sets
+								// Aqui que hay que realizar el conteo hacia atras.
+								// desde cont hacia atrás.
+								// Application.print("//------COMPROBANDO ELSE IF ");
+								buscamosLosSets_5(cont, resultadoPartido, auxSet1, auxSet2, auxSet3, auxSet4, auxSet5);
+							} else {
+								// Seguimos buscando
+								// Application.print("//------COMPROBANDO ELSE ");
+							}
+						}
+					}
+
+				}
+				cont += 5;
+			}
+		}else {
+			Application.print("//--------------Error: Número de Sets no válido");
 		}
 	}
-	//************************************************************************************** 
-	
-	//************************************************************************************ 
+	// **************************************************************************************
+
+	// ************************************************************************************
 	/**
-	 * Buscamos los sets de partidos coincidentes con el último que hemos encontrado.
+	 * Buscamos los sets de partidos coincidentes con el último que hemos
+	 * encontrado.
+	 * 
 	 * @param cont
 	 * @param resultadoPartido
-	 * @return
 	 */
-	public static int buscamosLosSets(int cont, ArrayList<String> resultadoPartido){
+	public static void buscamosLosSets_3(int conta, ArrayList<String> resultadoPartido, String auxSet1_2,
+			String auxSet2_2, String auxSet3_2) {
 		int contador = 0;
-		for(int i=cont; i >= 0; i--){
+		double probResultado = 0;
+		// Application.print("//------HEMOS EntRADO EN EL BUSCAMOSLOSSETS con CONT = " +
+		// conta);
+		for (int i = conta; i >= 0; i--) {
 			String auxSet1 = resultadoPartido.get(i);
-			String auxSet2 = resultadoPartido.get(i+1);
-			String auxSet3 = resultadoPartido.get(i+2);
-			
-			if(i%NUM_SETS == 0 
-					&& auxSet1 == resultadoPartido.get(i) 
-					&& auxSet2 == resultadoPartido.get(i+1)
-					&& auxSet3 == resultadoPartido.get(i+2)){
+			String auxSet2 = resultadoPartido.get(i + 1);
+			String auxSet3 = resultadoPartido.get(i + 2);
+
+			if (i % NUM_SETS == 0 && auxSet1.equals(auxSet1_2) && auxSet2.equals(auxSet2_2)
+					&& auxSet3.equals(auxSet3_2)) {
 				contador++;
 			}
 		}
-		return 0;
+
+		probResultado = (double) contador / NUM_PARTIDOS * 100;
+		Application.print("//-------------------PROBABILIDAD DE RESULTADO: " + df.format(probResultado));
+
+		hashmap.put(resultadoPartido.get(conta), probResultado);
+	}
+
+	// **************************************************************************************
+
+	// ************************************************************************************
+	/**
+	 * Buscamos los sets de partidos coincidentes con el último que hemos
+	 * encontrado.
+	 * 
+	 * @param cont
+	 * @param resultadoPartido
+	 */
+	public static void buscamosLosSets_5(int conta, ArrayList<String> resultadoPartido, String auxSet1_2,
+			String auxSet2_2, String auxSet3_2, String auxSet4_2, String auxSet5_2) {
+		int contador = 0;
+		double probResultado = 0;
+		// Application.print("//------HEMOS EntRADO EN EL BUSCAMOSLOSSETS con CONT = " +
+		// conta);
+		for (int i = conta; i >= 0; i--) {
+			String auxSet1 = resultadoPartido.get(i);
+			String auxSet2 = resultadoPartido.get(i + 1);
+			String auxSet3 = resultadoPartido.get(i + 2);
+			String auxSet4 = resultadoPartido.get(i + 3);
+			String auxSet5 = resultadoPartido.get(i + 4);
+
+			if (i % NUM_SETS == 0 && auxSet1.equals(auxSet1_2) && auxSet2.equals(auxSet2_2) && auxSet3.equals(auxSet3_2)
+					&& auxSet4.equals(auxSet4_2) && auxSet5.equals(auxSet5_2)) {
+				contador++;
+			}
+		}
+
+		probResultado = (double) contador / NUM_PARTIDOS * 100;
+		Application.print("//-------------------PROBABILIDAD DE RESULTADO: " + df.format(probResultado));
+
+		hashmap.put(resultadoPartido.get(conta), probResultado);
 	}
 
 }
