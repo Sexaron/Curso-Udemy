@@ -16,6 +16,7 @@ public class Match {
 	public int setsWonByVST = 0;
 	public int wonLCL = 0;
 	public int wonVST = 0;
+	public static int totalDeJuegos = 0;
 	
 	//public final static String setTotal[] = new String[Application.NUM_SETS];
 	
@@ -27,6 +28,7 @@ public class Match {
 		setsWonByVST = 0;
 		wonLCL = 0;
 		wonVST = 0;
+		totalDeJuegos = 0;
 	}
 	
 	
@@ -44,6 +46,7 @@ public class Match {
 				setTotal[i] = (set.psetLCL + "-" + set.psetVST);
 				//Application.print(setTotal[i]);
 				i++;
+				totalDeJuegos = set.psetLCL + set.psetVST + totalDeJuegos;
 			}else
 			{
 				set.setSetLCL(0);
@@ -51,6 +54,7 @@ public class Match {
 				//setTotal[i] = ("Set " + (i+1) + ": " + set.psetLCL + "-" + set.psetVST);
 				setTotal[i] = (set.psetLCL + "-" + set.psetVST);
 				i++;
+				totalDeJuegos = set.psetLCL + set.psetVST + totalDeJuegos;
 			}
 		}
 	}
@@ -78,7 +82,5 @@ public class Match {
 	public void setWonVST(){
 		wonVST++;
 	}
-
-
 		
 }

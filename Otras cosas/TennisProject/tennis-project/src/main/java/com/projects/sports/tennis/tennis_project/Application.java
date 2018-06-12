@@ -29,6 +29,7 @@ public class Application {
 
 	// public static Match arrayPartidos[] = new Match[NUM_PARTIDOS];
 	public static Match arrayPartidos[];
+	public static int arrayTotalDeJuegos[];
 	// public static Set arraySets[] = new Set[NUM_SETS];
 	public static Set arraySets[];
 	
@@ -41,6 +42,7 @@ public class Application {
 		System.out.println("Número de SETS por partido - ¿3 o 5?");
 		NUM_SETS = Integer.parseInt(br.readLine());
 		arrayPartidos = new Match[NUM_PARTIDOS];
+		arrayTotalDeJuegos = new int[NUM_PARTIDOS];
 		arraySets = new Set[NUM_SETS];
 
 		// Application.print("//--------------Entra en el main");
@@ -80,7 +82,8 @@ public class Application {
 				Application.print("//-------------ERROR: no ha ganado nadie.");
 			}
 			arrayPartidos[i] = partido;
-		}
+			arrayTotalDeJuegos[i] = partido.totalDeJuegos;
+			} 
 
 		printearResultadoDePartidos(arrayPartidos);
 	}
@@ -170,18 +173,7 @@ public class Application {
 	
 	
 	
-	// **************************************************************************************
-	public static void jugarPunto(int pLCL, int pVST) {
-		// Aquí se ejecutará todo el tema de las estadisticas.
-		double numRandom = Math.random() * 100;
-		if (numRandom < 75) {
-			pLCL++;
-		} else {
-			pVST++;
-		}
-		puntoLCL = pLCL;
-		puntoVST = pVST;
-	}
+
 	// **************************************************************************************
 
 	
@@ -234,6 +226,7 @@ public class Application {
 		probVictoria();
 		probRestuladoDePartido();
 		probResultadosExactos(match);
+		probNumJuegosTotalEnPartido();
 	}
 	// **************************************************************************************
 
@@ -529,14 +522,11 @@ public class Application {
 		}
 
 		probResultado = (double) contador / NUM_PARTIDOS * 100;
-		//Application.print("//-------------------PROBABILIDAD DE RESULTADO: " + df.format(probResultado));
-
 		
 		array[contTamañoArray][0] = String.valueOf(probResultado);
 		array[contTamañoArray][1] = resultadoPartido.get(conta)+" "+resultadoPartido.get(conta+1)+" "+resultadoPartido.get(conta+2);
 		contTamañoArray++;
 	}
-
 	// **************************************************************************************
 
 	
@@ -571,7 +561,6 @@ public class Application {
 		}
 
 		probResultado = (double) contador / NUM_PARTIDOS * 100;
-		Application.print("//-------------------PROBABILIDAD DE RESULTADO: " + df.format(probResultado));
 		
 		array[contTamañoArray][0] = String.valueOf(probResultado);
 		array[contTamañoArray][1] = resultadoPartido.get(conta)+" "+resultadoPartido.get(conta+1)+" "+resultadoPartido.get(conta+2)+" "
@@ -620,12 +609,12 @@ public class Application {
 			}
 		}
 		
-		Application.print("/n/n//-----------PROBABILIDAD DE RESULTADOS CON SETS");
+		Application.print("\n\n//-----------PROBABILIDAD DE RESULTADOS CON SETS");
 
 		/**
 		 * Esto es para pintarlos
 		 */
-		for (int i = 0; i < NUM_MUESTRAS; i++) {
+		for (int i = 0; i < 10; i++) {
 			if (array[i][0] == null) {
 				break;
 			} else {
@@ -633,5 +622,64 @@ public class Application {
 				Application.print("///PROBABILIDAD:  " + df.format(var) + "%	--->>>	" + array[i][1]);
 			}
 		}
+	}
+	
+	// ************************************************************************************
+	/**
+		 * Se van a ir clasificando el número de juegos totales en los partidos
+		 * por OVERS y UNDERS.
+		 */
+	public static void probNumJuegosTotalEnPartido() {
+
+		// [0]=12.5...[53]=65.5
+		Double printOpciones[] = new Double[53]; // 53 = 65 max de juegos menos
+													// 12 el minimo de juegos
+		Double var = 12.5;
+		int[][] overYunder = new int[53][2]; // [0] = over [1] = under
+		Double probUnder = 0.00;
+		Double probOver = 0.00;
+
+		for (int i = 0; i < 53; i++) {
+			printOpciones[i] = var;
+			var++;
+		}
+
+		for (int i = 0; i < NUM_PARTIDOS; i++) {
+			for (int j = 0; j < 53; j++) {
+
+				if (arrayTotalDeJuegos[i] < printOpciones[j]) {  	//UNDER
+					overYunder[j][1] = overYunder[j][1] + 1;
+				} else {											//OVER
+					overYunder[j][0] = overYunder[j][0] + 1;
+				}
+			}
+		}
+		
+		Application.print("\n\n//-----------PROBABILIDAD OVER/UNDER");
+		//printeamos los resultados
+		for(int i=0; i<53;i++){
+			probOver = (double) overYunder[i][0] /NUM_PARTIDOS * 100;
+			probUnder = (double) overYunder[i][1] /NUM_PARTIDOS * 100;
+			Application.print("//----------Prob OVER/UNDER de " + printOpciones[i] + " ->> " + df.format(probOver) +
+					"% - " + df.format(probUnder) + "%");
+		}
+	}
+	// **************************************************************************************
+	
+	
+	
+	
+	
+	// **************************************************************************************
+	public static void jugarPunto(int pLCL, int pVST) {
+		// Aquí se ejecutará todo el tema de las estadisticas.
+		double numRandom = Math.random() * 100;
+		if (numRandom < 75) {
+			pLCL++;
+		} else {
+			pVST++;
+		}
+		puntoLCL = pLCL;
+		puntoVST = pVST;
 	}
 }
