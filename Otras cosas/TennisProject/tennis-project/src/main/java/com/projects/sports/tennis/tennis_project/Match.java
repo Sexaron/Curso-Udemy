@@ -40,14 +40,16 @@ public class Match {
 		{
 			if ( Application.partidoTerminado == false ){
 				//Application.print(setTotal[i]);
-				setTotal[i] = ("Set " + (i+1) + ": " + set.psetLCL + "-" + set.psetVST);
+				//setTotal[i] = ("Set " + (i+1) + ": " + set.psetLCL + "-" + set.psetVST);
+				setTotal[i] = (set.psetLCL + "-" + set.psetVST);
 				//Application.print(setTotal[i]);
 				i++;
 			}else
 			{
 				set.setSetLCL(0);
 				set.setSetVST(0);
-				setTotal[i] = ("Set " + (i+1) + ": " + set.psetLCL + "-" + set.psetVST);
+				//setTotal[i] = ("Set " + (i+1) + ": " + set.psetLCL + "-" + set.psetVST);
+				setTotal[i] = (set.psetLCL + "-" + set.psetVST);
 				i++;
 			}
 		}

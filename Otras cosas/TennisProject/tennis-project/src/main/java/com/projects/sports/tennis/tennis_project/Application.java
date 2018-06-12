@@ -3,25 +3,36 @@ package com.projects.sports.tennis.tennis_project;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.reflect.Array;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 public class Application {
 	// VARIABLES
 	static Integer NUM_PARTIDOS = 0;
 	static Integer NUM_SETS = 0;
+	static Integer NUM_MUESTRAS = 1000;
 	static int puntoLCL, juegoLCL;
 	static int puntoVST, juegoVST;
 	static boolean partidoTerminado = false;
 	static DecimalFormat df = new DecimalFormat("#.00");
 	static HashMap<String, Double> hashmap = new HashMap();
+	static String array[][] = new String[NUM_MUESTRAS][2];
+	static int contTamañoArray = 0;
 
 	// public static Match arrayPartidos[] = new Match[NUM_PARTIDOS];
 	public static Match arrayPartidos[];
 	// public static Set arraySets[] = new Set[NUM_SETS];
 	public static Set arraySets[];
+	
+	
 
 	public static void main(String[] args) throws IllegalArgumentException, IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -75,6 +86,10 @@ public class Application {
 	}
 	// **************************************************************************************
 
+	
+	
+	
+	
 	// **************************************************************************************
 	public static void calculoSet(Match partido, Set set) {
 		while ((juegoLCL != 6) && (juegoVST != 6) && (juegoLCL + juegoVST < 10)) {
@@ -108,6 +123,10 @@ public class Application {
 	}
 	// **************************************************************************************
 
+	
+	
+	
+	
 	// **************************************************************************************
 	public static void calculoJuego() {
 		// calcularemos el juego
@@ -126,6 +145,10 @@ public class Application {
 	}
 	// **************************************************************************************
 
+	
+	
+	
+	
 	// **************************************************************************************
 	public static void calculoTieBreak() {
 		while (((puntoLCL < 7) && (puntoVST < 7)) || (Math.abs(puntoLCL - puntoVST) < 2)) {
@@ -143,6 +166,10 @@ public class Application {
 	}
 	// **************************************************************************************
 
+	
+	
+	
+	
 	// **************************************************************************************
 	public static void jugarPunto(int pLCL, int pVST) {
 		// Aquí se ejecutará todo el tema de las estadisticas.
@@ -157,6 +184,11 @@ public class Application {
 	}
 	// **************************************************************************************
 
+	
+	
+	
+	
+	
 	// ************************************************************************************
 	public static void printearResultadoDePartidos(Match match[]) {
 		for (int i = 0; i < NUM_PARTIDOS; i++) {
@@ -175,6 +207,11 @@ public class Application {
 	}
 	// **************************************************************************************
 
+	
+	
+	
+	
+	
 	// ************************************************************************************
 
 	/**
@@ -184,7 +221,11 @@ public class Application {
 		System.out.println(frase);
 	}
 	// **************************************************************************************
-
+	
+	
+	
+	
+	
 	// ************************************************************************************
 	/**
 	 * Calculo de todas las probabilidades
@@ -196,11 +237,15 @@ public class Application {
 	}
 	// **************************************************************************************
 
+	
+	
+	
+	
 	// ************************************************************************************
 
 	/**
-	 * Calculo de la probabilidad de que gane uno u otro según los resultados de
-	 * los partidos.
+	 * Calculo de la probabilidad de que gane uno u otro según los resultados de los
+	 * partidos.
 	 */
 	public static void probVictoria() {
 		Application.print("\n\n//------PROBABILIDAD DE VICTORIA-------//");
@@ -224,6 +269,10 @@ public class Application {
 	}
 	// **************************************************************************************
 
+	
+	
+	
+	
 	// ************************************************************************************
 
 	/**
@@ -340,6 +389,10 @@ public class Application {
 	}
 	// **************************************************************************************
 
+	
+	
+	
+	
 	// ************************************************************************************
 
 	/**
@@ -370,10 +423,7 @@ public class Application {
 				auxSet1 = resultadoPartido.get(cont);
 				auxSet2 = resultadoPartido.get(cont + 1);
 				auxSet3 = resultadoPartido.get(cont + 2);
-				// Application.print("//------auxSet1 " + auxSet1);
-				// Application.print("//------auxSet2 " + auxSet2);
-				// Application.print("//------auxSet3 " + auxSet3);
-
+				
 				// Buscamos el set en todos los sets simulados
 
 				if (cont + NUM_SETS == NUM_PARTIDOS * NUM_SETS) {
@@ -383,10 +433,6 @@ public class Application {
 					for (int k = NUM_SETS + cont; k < NUM_PARTIDOS * NUM_SETS; k++) {
 						// Application.print("//------k = NUM_SETS+cont " + k);
 						if (k % NUM_SETS == cont % NUM_SETS) {
-							// Application.print("//********************" + k);
-							// Application.print("//XXXXXXXXXXXXX k+NUM_SETS " + (k + NUM_SETS));
-							// Application.print("//XXXXXXXXXXXXX NUM_PARTIDOS*NUM_SETS " + (NUM_PARTIDOS *
-							// NUM_SETS));
 							if (auxSet1.equals(resultadoPartido.get(k)) && auxSet2.equals(resultadoPartido.get(k + 1))
 									&& auxSet3.equals(resultadoPartido.get(k + 2))) {
 								// Application.print("//------COMPROBANDO IF ");
@@ -415,9 +461,6 @@ public class Application {
 				auxSet3 = resultadoPartido.get(cont + 2);
 				auxSet4 = resultadoPartido.get(cont + 3);
 				auxSet5 = resultadoPartido.get(cont + 4);
-				// Application.print("//------auxSet1 " + auxSet1);
-				// Application.print("//------auxSet2 " + auxSet2);
-				// Application.print("//------auxSet3 " + auxSet3);
 
 				// Buscamos el set en todos los sets simulados
 
@@ -428,10 +471,6 @@ public class Application {
 					for (int k = NUM_SETS + cont; k < NUM_PARTIDOS * NUM_SETS; k++) {
 						// Application.print("//------k = NUM_SETS+cont " + k);
 						if (k % NUM_SETS == cont % NUM_SETS) {
-							// Application.print("//********************" + k);
-							// Application.print("//XXXXXXXXXXXXX k+NUM_SETS " + (k + NUM_SETS));
-							// Application.print("//XXXXXXXXXXXXX NUM_PARTIDOS*NUM_SETS " + (NUM_PARTIDOS *
-							// NUM_SETS));
 							if (auxSet1.equals(resultadoPartido.get(k)) && auxSet2.equals(resultadoPartido.get(k + 1))
 									&& auxSet3.equals(resultadoPartido.get(k + 2))
 									&& auxSet4.equals(resultadoPartido.get(k + 3))
@@ -439,11 +478,10 @@ public class Application {
 								// Application.print("//------COMPROBANDO IF ");
 								break; // Salimos el bucle y seguimos buscando el último partido con los mismos sets
 							} else if (k + NUM_SETS >= NUM_PARTIDOS * NUM_SETS) {
-								// No hemos vuelto a encontra coincidencias, por lo que este
+								// No hemos vuelto a encontrar coincidencias, por lo que este
 								// es el último partido con estos sets
 								// Aqui que hay que realizar el conteo hacia atras.
 								// desde cont hacia atrás.
-								// Application.print("//------COMPROBANDO ELSE IF ");
 								buscamosLosSets_5(cont, resultadoPartido, auxSet1, auxSet2, auxSet3, auxSet4, auxSet5);
 							} else {
 								// Seguimos buscando
@@ -455,12 +493,18 @@ public class Application {
 				}
 				cont += 5;
 			}
-		}else {
+		} else {
 			Application.print("//--------------Error: Número de Sets no válido");
 		}
+		
+		printeamosProbResultadosOrdenados();
 	}
 	// **************************************************************************************
 
+	
+	
+	
+	
 	// ************************************************************************************
 	/**
 	 * Buscamos los sets de partidos coincidentes con el último que hemos
@@ -473,8 +517,6 @@ public class Application {
 			String auxSet2_2, String auxSet3_2) {
 		int contador = 0;
 		double probResultado = 0;
-		// Application.print("//------HEMOS EntRADO EN EL BUSCAMOSLOSSETS con CONT = " +
-		// conta);
 		for (int i = conta; i >= 0; i--) {
 			String auxSet1 = resultadoPartido.get(i);
 			String auxSet2 = resultadoPartido.get(i + 1);
@@ -487,13 +529,20 @@ public class Application {
 		}
 
 		probResultado = (double) contador / NUM_PARTIDOS * 100;
-		Application.print("//-------------------PROBABILIDAD DE RESULTADO: " + df.format(probResultado));
+		//Application.print("//-------------------PROBABILIDAD DE RESULTADO: " + df.format(probResultado));
 
-		hashmap.put(resultadoPartido.get(conta), probResultado);
+		
+		array[contTamañoArray][0] = String.valueOf(probResultado);
+		array[contTamañoArray][1] = resultadoPartido.get(conta)+" "+resultadoPartido.get(conta+1)+" "+resultadoPartido.get(conta+2);
+		contTamañoArray++;
 	}
 
 	// **************************************************************************************
 
+	
+	
+	
+	
 	// ************************************************************************************
 	/**
 	 * Buscamos los sets de partidos coincidentes con el último que hemos
@@ -523,8 +572,66 @@ public class Application {
 
 		probResultado = (double) contador / NUM_PARTIDOS * 100;
 		Application.print("//-------------------PROBABILIDAD DE RESULTADO: " + df.format(probResultado));
-
-		hashmap.put(resultadoPartido.get(conta), probResultado);
+		
+		array[contTamañoArray][0] = String.valueOf(probResultado);
+		array[contTamañoArray][1] = resultadoPartido.get(conta)+" "+resultadoPartido.get(conta+1)+" "+resultadoPartido.get(conta+2)+" "
+				+resultadoPartido.get(conta+3)+" "+resultadoPartido.get(conta+4);
+		contTamañoArray++;
 	}
+	// **************************************************************************************
 
+	
+	
+	
+	
+	// ************************************************************************************
+	/**
+	 * Ordenamos y printeamos todos los resultados obtenidos de las funciones que
+	 * buscan coincidencias entre sets de partidos.
+	 */
+	public static void printeamosProbResultadosOrdenados() {
+		Double var = 0.00;
+		Double aux1 = 0.00;
+		Double aux2 = 0.00;
+		String auxArray[][] = new String[NUM_MUESTRAS][2];
+
+		/**
+		 * Ordenamos
+		 */
+		for (int i = 0; i < NUM_MUESTRAS - 1; i++) {
+			for (int x = i + 1; x < NUM_MUESTRAS; x++) {
+				if (array[i][0] == null || array[x][0] == null) {
+					break;
+				} else {
+					aux1 = Double.parseDouble(array[x][0]);
+					aux2 = Double.parseDouble(array[i][0]);
+
+					if (Double.compare(aux1, aux2) > 0) {
+						auxArray[x][0] = array[i][0];
+						auxArray[x][1] = array[i][1];
+						array[i][0] = array[x][0];
+						array[i][1] = array[x][1];
+						array[x][0] = auxArray[x][0];
+						array[x][1] = auxArray[x][1];
+					} else {
+						//Application.print("///NO hacemos nadA");
+					}
+				}
+			}
+		}
+		
+		Application.print("/n/n//-----------PROBABILIDAD DE RESULTADOS CON SETS");
+
+		/**
+		 * Esto es para pintarlos
+		 */
+		for (int i = 0; i < NUM_MUESTRAS; i++) {
+			if (array[i][0] == null) {
+				break;
+			} else {
+				var = Double.parseDouble(array[i][0]);
+				Application.print("///PROBABILIDAD:  " + df.format(var) + "%	--->>>	" + array[i][1]);
+			}
+		}
+	}
 }
