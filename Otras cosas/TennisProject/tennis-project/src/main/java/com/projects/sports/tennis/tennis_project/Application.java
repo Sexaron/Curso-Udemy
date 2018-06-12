@@ -673,8 +673,47 @@ public class Application {
 	// **************************************************************************************
 	public static void jugarPunto(int pLCL, int pVST) {
 		// Aquí se ejecutará todo el tema de las estadisticas.
+		double serveLCL_ace = 0.00;
+		double serveLCL_doubleFault = 0.00;
+		double serveLCL_1stServe = 0.00;
+		double serveLCL_1stServeWon = 0.00;
+		double serveLCL_2ndServeWon = 0.00;
+		double serveLCL_breakPoinsSaved = 0.00;
+		double serveLCL_ServicePointsWon = 0.00;
+		double serveLCL_ServiceGamesWon = 0.00;
+		
+		double servVST_ace = 0.00;
+		double serveVST_doubleFault = 0.00;
+		double serveVST_1stServe = 0.00;
+		double serveVST_1stServeWon = 0.00;
+		double serveVST_2ndServeWon = 0.00;
+		double serveVST_breakPoinsSaved = 0.00;
+		double serveVST_ServicePointsWon = 0.00;
+		double serveVST_ServiceGamesWon = 0.00;
+		
+		double returnLCL_aceAgainst = 0.00;
+		double returnLCL_doubleFaultAgainst = 0.00;
+		double returnLCL_1stSrvReturnWon = 0.00;
+		double returnLCL_2stSrvReturnWon = 0.00;
+		double returnLCL_breakPointsWon = 0.00;
+		double returnLCL_retunrPointsWon = 0.00;
+		double returnLCL_returnGamesWon = 0.00;
+		
+		double returnVST_aceAgainst = 0.00;
+		double returnVST_doubleFaultAgainst = 0.00;
+		double returnVST_1stSrvReturnWon = 0.00;
+		double returnVST_2stSrvReturnWon = 0.00;
+		double returnVST_breakPointsWon = 0.00;
+		double returnVST_retunrPointsWon = 0.00;
+		double returnVST_returnGamesWon = 0.00;
+		
+		double handicapLCL = 0.00;
+		double handicapVST = 0.00;
+		
+		
+		
 		double numRandom = Math.random() * 100;
-		if (numRandom < 75) {
+		if (numRandom < 45) {
 			pLCL++;
 		} else {
 			pVST++;
