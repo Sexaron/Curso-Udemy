@@ -17,6 +17,7 @@ public class Match {
 	public int wonLCL = 0;
 	public int wonVST = 0;
 	public static int totalDeJuegos = 0;
+	boolean inicio = false;
 	
 	//public final static String setTotal[] = new String[Application.NUM_SETS];
 	
@@ -83,4 +84,11 @@ public class Match {
 		wonVST++;
 	}
 		
+	public void setInicio(){
+		inicio = true;
+	}
+	
+	public void setFinal(){
+		inicio = false;
+	}
 }

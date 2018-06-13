@@ -3,16 +3,8 @@ package com.projects.sports.tennis.tennis_project;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.lang.reflect.Array;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.SortedMap;
-import java.util.TreeMap;
 
 public class Application {
 	// VARIABLES
@@ -23,17 +15,16 @@ public class Application {
 	static int puntoVST, juegoVST;
 	static boolean partidoTerminado = false;
 	static DecimalFormat df = new DecimalFormat("#.00");
-	static HashMap<String, Double> hashmap = new HashMap();
 	static String array[][] = new String[NUM_MUESTRAS][2];
 	static int contTamañoArray = 0;
+	static int tieBreak = 0;
+	static int ptieBreak = 0;//si es 0 = no es tie, si es 1 sí que es tieBreak
 
 	// public static Match arrayPartidos[] = new Match[NUM_PARTIDOS];
 	public static Match arrayPartidos[];
 	public static int arrayTotalDeJuegos[];
 	// public static Set arraySets[] = new Set[NUM_SETS];
 	public static Set arraySets[];
-	
-	
 
 	public static void main(String[] args) throws IllegalArgumentException, IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -57,6 +48,7 @@ public class Application {
 		for (int i = 0; i < NUM_PARTIDOS; i++) {
 			// Application.print("//--------------COMIENZA NUEVO PARTIDO");
 			Match partido = new Match();
+			partido.setInicio();
 			partidoTerminado = false;
 			for (int j = 0; j < NUM_SETS; j++) {
 				// Application.print("//-----------VALOR DE J = " + j);
@@ -83,28 +75,24 @@ public class Application {
 			}
 			arrayPartidos[i] = partido;
 			arrayTotalDeJuegos[i] = partido.totalDeJuegos;
-			} 
+		}
 
 		printearResultadoDePartidos(arrayPartidos);
 	}
 	// **************************************************************************************
 
-	
-	
-	
-	
 	// **************************************************************************************
 	public static void calculoSet(Match partido, Set set) {
 		while ((juegoLCL != 6) && (juegoVST != 6) && (juegoLCL + juegoVST < 10)) {
-			calculoJuego();
+			calculoJuego(partido, set);
 		}
 
 		if ((juegoLCL == 5) && (juegoVST == 5)) {
 			while ((juegoLCL != 7) && (juegoVST != 7)) {
 				if ((juegoLCL == 6) && (juegoVST == 6)) {
-					calculoTieBreak();
+					calculoTieBreak(partido, set);
 				} else {
-					calculoJuego();
+					calculoJuego(partido, set);
 				}
 			}
 		}
@@ -126,15 +114,11 @@ public class Application {
 	}
 	// **************************************************************************************
 
-	
-	
-	
-	
 	// **************************************************************************************
-	public static void calculoJuego() {
+	public static void calculoJuego(Match partido, Set set) {
 		// calcularemos el juego
 		while (((puntoLCL < 4) && (puntoVST < 4)) || (Math.abs(puntoLCL - puntoVST) < 2)) {
-			jugarPunto(puntoLCL, puntoVST);
+			jugarPunto(partido, set, puntoLCL, puntoVST, tieBreak);
 		}
 
 		if (puntoLCL > puntoVST) {
@@ -148,14 +132,13 @@ public class Application {
 	}
 	// **************************************************************************************
 
-	
-	
-	
-	
 	// **************************************************************************************
-	public static void calculoTieBreak() {
+	public static void calculoTieBreak(Match partido, Set set) {
+		tieBreak = 1;
+		ptieBreak = 0;
 		while (((puntoLCL < 7) && (puntoVST < 7)) || (Math.abs(puntoLCL - puntoVST) < 2)) {
-			jugarPunto(puntoLCL, puntoVST);
+			jugarPunto(partido, set, puntoLCL, puntoVST, ptieBreak);
+			ptieBreak++;
 		}
 
 		if (puntoLCL > puntoVST) {
@@ -166,21 +149,12 @@ public class Application {
 
 		puntoLCL = 0;
 		puntoVST = 0;
+		tieBreak = 0;
 	}
 	// **************************************************************************************
 
-	
-	
-	
-	
-
 	// **************************************************************************************
 
-	
-	
-	
-	
-	
 	// ************************************************************************************
 	public static void printearResultadoDePartidos(Match match[]) {
 		for (int i = 0; i < NUM_PARTIDOS; i++) {
@@ -199,11 +173,6 @@ public class Application {
 	}
 	// **************************************************************************************
 
-	
-	
-	
-	
-	
 	// ************************************************************************************
 
 	/**
@@ -213,11 +182,7 @@ public class Application {
 		System.out.println(frase);
 	}
 	// **************************************************************************************
-	
-	
-	
-	
-	
+
 	// ************************************************************************************
 	/**
 	 * Calculo de todas las probabilidades
@@ -230,15 +195,11 @@ public class Application {
 	}
 	// **************************************************************************************
 
-	
-	
-	
-	
 	// ************************************************************************************
 
 	/**
-	 * Calculo de la probabilidad de que gane uno u otro según los resultados de los
-	 * partidos.
+	 * Calculo de la probabilidad de que gane uno u otro según los resultados de
+	 * los partidos.
 	 */
 	public static void probVictoria() {
 		Application.print("\n\n//------PROBABILIDAD DE VICTORIA-------//");
@@ -262,10 +223,6 @@ public class Application {
 	}
 	// **************************************************************************************
 
-	
-	
-	
-	
 	// ************************************************************************************
 
 	/**
@@ -382,10 +339,6 @@ public class Application {
 	}
 	// **************************************************************************************
 
-	
-	
-	
-	
 	// ************************************************************************************
 
 	/**
@@ -416,7 +369,7 @@ public class Application {
 				auxSet1 = resultadoPartido.get(cont);
 				auxSet2 = resultadoPartido.get(cont + 1);
 				auxSet3 = resultadoPartido.get(cont + 2);
-				
+
 				// Buscamos el set en todos los sets simulados
 
 				if (cont + NUM_SETS == NUM_PARTIDOS * NUM_SETS) {
@@ -429,17 +382,22 @@ public class Application {
 							if (auxSet1.equals(resultadoPartido.get(k)) && auxSet2.equals(resultadoPartido.get(k + 1))
 									&& auxSet3.equals(resultadoPartido.get(k + 2))) {
 								// Application.print("//------COMPROBANDO IF ");
-								break; // Salimos el bucle y seguimos buscando el último partido con los mismos sets
+								break; // Salimos el bucle y seguimos buscando
+										// el último partido con los mismos sets
 							} else if (k + NUM_SETS >= NUM_PARTIDOS * NUM_SETS) {
-								// No hemos vuelto a encontra coincidencias, por lo que este
+								// No hemos vuelto a encontra coincidencias, por
+								// lo que este
 								// es el último partido con estos sets
-								// Aqui que hay que realizar el conteo hacia atras.
+								// Aqui que hay que realizar el conteo hacia
+								// atras.
 								// desde cont hacia atrás.
-								// Application.print("//------COMPROBANDO ELSE IF ");
+								// Application.print("//------COMPROBANDO ELSE
+								// IF ");
 								buscamosLosSets_3(cont, resultadoPartido, auxSet1, auxSet2, auxSet3);
 							} else {
 								// Seguimos buscando
-								// Application.print("//------COMPROBANDO ELSE ");
+								// Application.print("//------COMPROBANDO ELSE
+								// ");
 							}
 						}
 					}
@@ -469,16 +427,20 @@ public class Application {
 									&& auxSet4.equals(resultadoPartido.get(k + 3))
 									&& auxSet5.equals(resultadoPartido.get(k + 4))) {
 								// Application.print("//------COMPROBANDO IF ");
-								break; // Salimos el bucle y seguimos buscando el último partido con los mismos sets
+								break; // Salimos el bucle y seguimos buscando
+										// el último partido con los mismos sets
 							} else if (k + NUM_SETS >= NUM_PARTIDOS * NUM_SETS) {
-								// No hemos vuelto a encontrar coincidencias, por lo que este
+								// No hemos vuelto a encontrar coincidencias,
+								// por lo que este
 								// es el último partido con estos sets
-								// Aqui que hay que realizar el conteo hacia atras.
+								// Aqui que hay que realizar el conteo hacia
+								// atras.
 								// desde cont hacia atrás.
 								buscamosLosSets_5(cont, resultadoPartido, auxSet1, auxSet2, auxSet3, auxSet4, auxSet5);
 							} else {
 								// Seguimos buscando
-								// Application.print("//------COMPROBANDO ELSE ");
+								// Application.print("//------COMPROBANDO ELSE
+								// ");
 							}
 						}
 					}
@@ -489,15 +451,11 @@ public class Application {
 		} else {
 			Application.print("//--------------Error: Número de Sets no válido");
 		}
-		
+
 		printeamosProbResultadosOrdenados();
 	}
 	// **************************************************************************************
 
-	
-	
-	
-	
 	// ************************************************************************************
 	/**
 	 * Buscamos los sets de partidos coincidentes con el último que hemos
@@ -522,17 +480,14 @@ public class Application {
 		}
 
 		probResultado = (double) contador / NUM_PARTIDOS * 100;
-		
+
 		array[contTamañoArray][0] = String.valueOf(probResultado);
-		array[contTamañoArray][1] = resultadoPartido.get(conta)+" "+resultadoPartido.get(conta+1)+" "+resultadoPartido.get(conta+2);
+		array[contTamañoArray][1] = resultadoPartido.get(conta) + " " + resultadoPartido.get(conta + 1) + " "
+				+ resultadoPartido.get(conta + 2);
 		contTamañoArray++;
 	}
 	// **************************************************************************************
 
-	
-	
-	
-	
 	// ************************************************************************************
 	/**
 	 * Buscamos los sets de partidos coincidentes con el último que hemos
@@ -545,7 +500,8 @@ public class Application {
 			String auxSet2_2, String auxSet3_2, String auxSet4_2, String auxSet5_2) {
 		int contador = 0;
 		double probResultado = 0;
-		// Application.print("//------HEMOS EntRADO EN EL BUSCAMOSLOSSETS con CONT = " +
+		// Application.print("//------HEMOS EntRADO EN EL BUSCAMOSLOSSETS con
+		// CONT = " +
 		// conta);
 		for (int i = conta; i >= 0; i--) {
 			String auxSet1 = resultadoPartido.get(i);
@@ -561,22 +517,19 @@ public class Application {
 		}
 
 		probResultado = (double) contador / NUM_PARTIDOS * 100;
-		
+
 		array[contTamañoArray][0] = String.valueOf(probResultado);
-		array[contTamañoArray][1] = resultadoPartido.get(conta)+" "+resultadoPartido.get(conta+1)+" "+resultadoPartido.get(conta+2)+" "
-				+resultadoPartido.get(conta+3)+" "+resultadoPartido.get(conta+4);
+		array[contTamañoArray][1] = resultadoPartido.get(conta) + " " + resultadoPartido.get(conta + 1) + " "
+				+ resultadoPartido.get(conta + 2) + " " + resultadoPartido.get(conta + 3) + " "
+				+ resultadoPartido.get(conta + 4);
 		contTamañoArray++;
 	}
 	// **************************************************************************************
 
-	
-	
-	
-	
 	// ************************************************************************************
 	/**
-	 * Ordenamos y printeamos todos los resultados obtenidos de las funciones que
-	 * buscan coincidencias entre sets de partidos.
+	 * Ordenamos y printeamos todos los resultados obtenidos de las funciones
+	 * que buscan coincidencias entre sets de partidos.
 	 */
 	public static void printeamosProbResultadosOrdenados() {
 		Double var = 0.00;
@@ -603,12 +556,12 @@ public class Application {
 						array[x][0] = auxArray[x][0];
 						array[x][1] = auxArray[x][1];
 					} else {
-						//Application.print("///NO hacemos nadA");
+						// Application.print("///NO hacemos nadA");
 					}
 				}
 			}
 		}
-		
+
 		Application.print("\n\n//-----------PROBABILIDAD DE RESULTADOS CON SETS");
 
 		/**
@@ -623,12 +576,12 @@ public class Application {
 			}
 		}
 	}
-	
+
 	// ************************************************************************************
 	/**
-		 * Se van a ir clasificando el número de juegos totales en los partidos
-		 * por OVERS y UNDERS.
-		 */
+	 * Se van a ir clasificando el número de juegos totales en los partidos por
+	 * OVERS y UNDERS.
+	 */
 	public static void probNumJuegosTotalEnPartido() {
 
 		// [0]=12.5...[53]=65.5
@@ -647,78 +600,395 @@ public class Application {
 		for (int i = 0; i < NUM_PARTIDOS; i++) {
 			for (int j = 0; j < 53; j++) {
 
-				if (arrayTotalDeJuegos[i] < printOpciones[j]) {  	//UNDER
+				if (arrayTotalDeJuegos[i] < printOpciones[j]) { // UNDER
 					overYunder[j][1] = overYunder[j][1] + 1;
-				} else {											//OVER
+				} else { // OVER
 					overYunder[j][0] = overYunder[j][0] + 1;
 				}
 			}
 		}
-		
+
 		Application.print("\n\n//-----------PROBABILIDAD OVER/UNDER");
-		//printeamos los resultados
-		for(int i=0; i<53;i++){
-			probOver = (double) overYunder[i][0] /NUM_PARTIDOS * 100;
-			probUnder = (double) overYunder[i][1] /NUM_PARTIDOS * 100;
-			Application.print("//----------Prob OVER/UNDER de " + printOpciones[i] + " ->> " + df.format(probOver) +
-					"% - " + df.format(probUnder) + "%");
+		// printeamos los resultados
+		for (int i = 0; i < 53; i++) {
+			probOver = (double) overYunder[i][0] / NUM_PARTIDOS * 100;
+			probUnder = (double) overYunder[i][1] / NUM_PARTIDOS * 100;
+			Application.print("//----------Prob OVER/UNDER de " + printOpciones[i] + " ->> " + df.format(probOver)
+					+ "% - " + df.format(probUnder) + "%");
 		}
 	}
 	// **************************************************************************************
-	
-	
-	
-	
-	
+
 	// **************************************************************************************
-	public static void jugarPunto(int pLCL, int pVST) {
+	public static void jugarPunto(Match partido, Set set, int pLCL, int pVST, int ptieBreak) {
 		// Aquí se ejecutará todo el tema de las estadisticas.
-		double serveLCL_ace = 0.00;
-		double serveLCL_doubleFault = 0.00;
-		double serveLCL_1stServe = 0.00;
-		double serveLCL_1stServeWon = 0.00;
-		double serveLCL_2ndServeWon = 0.00;
-		double serveLCL_breakPoinsSaved = 0.00;
-		double serveLCL_ServicePointsWon = 0.00;
-		double serveLCL_ServiceGamesWon = 0.00;
-		
-		double servVST_ace = 0.00;
-		double serveVST_doubleFault = 0.00;
-		double serveVST_1stServe = 0.00;
-		double serveVST_1stServeWon = 0.00;
-		double serveVST_2ndServeWon = 0.00;
-		double serveVST_breakPoinsSaved = 0.00;
-		double serveVST_ServicePointsWon = 0.00;
-		double serveVST_ServiceGamesWon = 0.00;
-		
-		double returnLCL_aceAgainst = 0.00;
-		double returnLCL_doubleFaultAgainst = 0.00;
-		double returnLCL_1stSrvReturnWon = 0.00;
-		double returnLCL_2stSrvReturnWon = 0.00;
-		double returnLCL_breakPointsWon = 0.00;
-		double returnLCL_retunrPointsWon = 0.00;
-		double returnLCL_returnGamesWon = 0.00;
-		
-		double returnVST_aceAgainst = 0.00;
-		double returnVST_doubleFaultAgainst = 0.00;
-		double returnVST_1stSrvReturnWon = 0.00;
-		double returnVST_2stSrvReturnWon = 0.00;
-		double returnVST_breakPointsWon = 0.00;
-		double returnVST_retunrPointsWon = 0.00;
-		double returnVST_returnGamesWon = 0.00;
-		
-		double handicapLCL = 0.00;
-		double handicapVST = 0.00;
-		
-		
-		
-		double numRandom = Math.random() * 100;
-		if (numRandom < 45) {
-			pLCL++;
-		} else {
-			pVST++;
+
+		int saque = 0; // saque = 0 para el saque del LCL y 1 para el del VST
+		double aux_ace = 0; // para el calculo prob. de ace
+		double aux_doubleFault = 0;
+		double aux_breakPoinsSaved = 0;
+		double aux_firstServe = 0;
+		double aux_secondServe = 0;
+
+		double serveLCL_ace = 4.10;
+		double serveLCL_doubleFault = 2.10;
+		double serveLCL_1stServe = 68.70;
+		double serveLCL_1stServeWon = 71.80;
+		double serveLCL_2ndServeWon = 57.20;
+		double serveLCL_breakPoinsSaved = 66.10;
+//		double serveLCL_ServicePointsWon = 0.00;
+//		double serveLCL_ServiceGamesWon = 0.00;
+
+		double serveVST_ace = 4.10;
+		double serveVST_doubleFault = 2.10;
+		double serveVST_1stServe = 68.70;
+		double serveVST_1stServeWon = 71.80;
+		double serveVST_2ndServeWon = 57.20;
+		double serveVST_breakPoinsSaved = 66.10;
+//		double serveVST_ServicePointsWon = 0.00;
+//		double serveVST_ServiceGamesWon = 0.00;
+
+		double returnLCL_aceAgainst = 7.20;
+		double returnLCL_doubleFaultAgainst = 3.40;
+		double returnLCL_1stSrvReturnWon = 34.20;
+		double returnLCL_2stSrvReturnWon = 55.30;
+		double returnLCL_breakPointsWon = 45.00;
+//		double returnLCL_retunrPointsWon = 0.00;
+//		double returnLCL_returnGamesWon = 0.00;
+
+		double returnVST_aceAgainst = 7.20;
+		double returnVST_doubleFaultAgainst = 3.40;
+		double returnVST_1stSrvReturnWon = 34.20;
+		double returnVST_2stSrvReturnWon = 55.30;
+		double returnVST_breakPointsWon = 45.00;
+//		double returnVST_retunrPointsWon = 0.00;
+//		double returnVST_returnGamesWon = 0.00;
+
+//		double handicapLCL = 0.00;
+//		double handicapVST = 0.00;
+
+		double numRandom = 0.00;
+
+		// Sorteo de saque al inicio de cada
+		// partido//////////////////////////////////////////////
+		if (partido.inicio == true) {
+			numRandom = Math.random() * 100;
+			// Application.print("NUMRANDOM = " + numRandom);
+
+			if (numRandom < 50) {
+				saque = 0;
+				Application.print("Saque para el jugador LOCAL");
+			} else {
+				saque = 1;
+				Application.print("Saque para el jugador VISITANTE");
+			}
 		}
-		puntoLCL = pLCL;
-		puntoVST = pVST;
+		//////////////////////////////////////////////////////////////
+
+		if (tieBreak == 0) {
+			if (saque == 0) { // Juego con saque para el LCL////////////////
+				Application.print("Saca LOCAL");
+				numRandom = Math.random() * 100;
+				if (serveLCL_1stServe > numRandom) { // Entra el primer servicio
+					numRandom = Math.random() * 100;
+					aux_ace = (serveLCL_ace + returnVST_aceAgainst) / 2;
+					if (aux_ace > numRandom) { // ACE!!!
+						pLCL++;
+						Application.print("ACE!! por el LCL");
+					} else { // No hay ACE, se continua el juego
+						if (pVST > 2 && (pVST - pLCL) >= 1) { // Punto de BREAK
+							numRandom = Math.random() * 100;
+							aux_breakPoinsSaved = serveLCL_breakPoinsSaved * 100
+									/ (serveLCL_breakPoinsSaved + returnVST_breakPointsWon);
+							if (aux_breakPoinsSaved > numRandom) { // Salvas el
+																	// BREAK
+								pLCL++;
+							} else { // Pierdes el BREAK
+								pVST++;
+							}
+						} else { // NO es punto de BREAK
+							numRandom = Math.random() * 100;
+							aux_firstServe = serveLCL_1stServeWon * 100
+									/ (serveLCL_1stServeWon + returnVST_1stSrvReturnWon);
+							if (aux_firstServe > numRandom) { // Gana el LCL con
+																// 1st servicio
+								pLCL++;
+							} else { // Gana el VST con 1st servicio
+								pVST++;
+							}
+						}
+					}
+				} else { // Pasamos al segundo servicio
+					numRandom = Math.random() * 100;
+					aux_doubleFault = (serveLCL_doubleFault + returnVST_doubleFaultAgainst) / 2;
+					if (aux_doubleFault < numRandom) { // Entra el segundo
+														// servicio
+						if (pVST > 2 && (pVST - pLCL) >= 1) { // Punto de BREAK
+							numRandom = Math.random() * 100;
+							aux_breakPoinsSaved = serveLCL_breakPoinsSaved * 100
+									/ (serveLCL_breakPoinsSaved + returnVST_breakPointsWon);
+							if (aux_breakPoinsSaved > numRandom) { // Salvas el
+																	// BREAK
+								pLCL++;
+							} else { // Pierdes el BREAK
+								pVST++;
+							}
+						} else { // NO es punto de BREAK
+							numRandom = Math.random() * 100;
+							aux_secondServe = serveLCL_2ndServeWon * 100
+									/ (serveLCL_2ndServeWon + returnVST_2stSrvReturnWon);
+							if (aux_secondServe > numRandom) { // Gana el LCL con
+																// 2nd
+																// servicio
+								pLCL++;
+							} else { // Gana el VST con 2nd servicio
+								pVST++;
+							}
+						}
+					} else { // Ha realizado doble falta
+						pVST++;
+					}
+				}
+
+				puntoLCL = pLCL;
+				puntoVST = pVST;
+
+				if ((pLCL > 3 && (pLCL - pVST) > 1) || pVST > 3 && (pVST - pLCL) > 1) {
+					if (saque == 0) {
+						saque = 1;
+					} else {
+						saque = 0;
+					}
+				}
+				partido.setFinal();
+				
+			} else if (saque == 1) { // Juego con saque para el
+										// VST////////////////
+				Application.print("Saca VISITANTE");
+				numRandom = Math.random() * 100;
+				if (serveVST_1stServe > numRandom) { // Entra el primer servicio
+					numRandom = Math.random() * 100;
+					aux_ace = (serveVST_ace + returnLCL_aceAgainst) / 2;
+					if (aux_ace > numRandom) { // ACE!!!
+						pVST++;
+						Application.print("ACE!! por el VST");
+					} else { // No hay ACE, se continua el juego
+						if (pLCL > 2 && (pLCL - pVST) >= 1) { // Punto de BREAK
+							numRandom = Math.random() * 100;
+							aux_breakPoinsSaved = serveVST_breakPoinsSaved * 100
+									/ (serveVST_breakPoinsSaved + returnLCL_breakPointsWon);
+							if (aux_breakPoinsSaved > numRandom) { // Salvas el
+																	// BREAK
+								pVST++;
+							} else { // Pierdes el BREAK
+								pLCL++;
+							}
+						} else { // NO es punto de BREAK
+							numRandom = Math.random() * 100;
+							aux_firstServe = serveVST_1stServeWon * 100
+									/ (serveVST_1stServeWon + returnLCL_1stSrvReturnWon);
+							if (aux_firstServe > numRandom) { // Gana el VST con
+																// 1st servicio
+								pVST++;
+							} else { // Gana el LCL con 1st servicio
+								pLCL++;
+							}
+						}
+					}
+				} else { // Pasamos al segundo servicio
+					numRandom = Math.random() * 100;
+					aux_doubleFault = (serveVST_doubleFault + returnLCL_doubleFaultAgainst) / 2;
+					if (aux_doubleFault < numRandom) { // Entra el segundo
+														// servicio
+						if (pLCL > 2 && (pLCL - pVST) >= 1) { // Punto de BREAK
+							numRandom = Math.random() * 100;
+							aux_breakPoinsSaved = serveVST_breakPoinsSaved * 100
+									/ (serveVST_breakPoinsSaved + returnLCL_breakPointsWon);
+							if (aux_breakPoinsSaved > numRandom) { // Salvas el
+																	// BREAK
+								pVST++;
+							} else { // Pierdes el BREAK
+								pLCL++;
+							}
+						} else { // NO es punto de BREAK
+							numRandom = Math.random() * 100;
+							aux_secondServe = serveVST_2ndServeWon * 100
+									/ (serveVST_2ndServeWon + returnLCL_2stSrvReturnWon);
+							if (aux_secondServe > numRandom) { // Gana el VST con
+																// 2nd servicio
+								pVST++;
+							} else { // Gana el LCL con 2nd servicio
+								pLCL++;
+							}
+						}
+					} else { // Ha realizado doble falta
+						pLCL++;
+					}
+				}
+
+				puntoLCL = pLCL;
+				puntoVST = pVST;
+
+				if ((pLCL > 3 && (pLCL - pVST) > 1) || pVST > 3 && (pVST - pLCL) > 1) {
+					if (saque == 0) {
+						saque = 1;
+					} else {
+						saque = 0;
+					}
+				}
+				partido.setFinal();
+			}
+		} else { 										// Calculo del punto cuando es tieBreak////////////////////////////////////////
+			if (saque == 0) { // Juego con saque para el LCL////////////////
+				numRandom = Math.random() * 100;
+				if (serveLCL_1stServe > numRandom) { // Entra el primer servicio
+					numRandom = Math.random() * 100;
+					aux_ace = (serveLCL_ace + returnVST_aceAgainst) / 2;
+					if (aux_ace > numRandom) { // ACE!!!
+						pLCL++;
+						Application.print("ACE!! por el LCL");
+					} else { // No hay ACE, se continua el juego
+						if (pVST > 2 && (pVST - pLCL) >= 1) { // Punto de BREAK
+							numRandom = Math.random() * 100;
+							aux_breakPoinsSaved = serveLCL_breakPoinsSaved * 100
+									/ (serveLCL_breakPoinsSaved + returnVST_breakPointsWon);
+							if (aux_breakPoinsSaved > numRandom) { // Salvas el
+																	// BREAK
+								pLCL++;
+							} else { // Pierdes el BREAK
+								pVST++;
+							}
+						} else { // NO es punto de BREAK
+							numRandom = Math.random() * 100;
+							aux_firstServe = serveLCL_1stServeWon * 100
+									/ (serveLCL_1stServeWon + returnVST_1stSrvReturnWon);
+							if (aux_firstServe > numRandom) { // Gana el LCL con
+																// 1st servicio
+								pLCL++;
+							} else { // Gana el VST con 1st servicio
+								pVST++;
+							}
+						}
+					}
+				} else { // Pasamos al segundo servicio
+					numRandom = Math.random() * 100;
+					aux_doubleFault = (serveLCL_doubleFault + returnVST_doubleFaultAgainst) / 2;
+					if (aux_doubleFault < numRandom) { // Entra el segundo
+														// servicio
+						if (pVST > 2 && (pVST - pLCL) >= 1) { // Punto de BREAK
+							numRandom = Math.random() * 100;
+							aux_breakPoinsSaved = serveLCL_breakPoinsSaved * 100
+									/ (serveLCL_breakPoinsSaved + returnVST_breakPointsWon);
+							if (aux_breakPoinsSaved > numRandom) { // Salvas el
+																	// BREAK
+								pLCL++;
+							} else { // Pierdes el BREAK
+								pVST++;
+							}
+						} else { // NO es punto de BREAK
+							numRandom = Math.random() * 100;
+							aux_secondServe = serveLCL_2ndServeWon * 100
+									/ (serveLCL_2ndServeWon + returnVST_2stSrvReturnWon);
+							if (aux_secondServe > numRandom) { // Gana el LCL con
+																// 2nd
+																// servicio
+								pLCL++;
+							} else { // Gana el VST con 2nd servicio
+								pVST++;
+							}
+						}
+					} else { // Ha realizado doble falta
+						pVST++;
+					}
+				}
+
+				puntoLCL = pLCL;
+				puntoVST = pVST;
+
+				if (ptieBreak%2 == 0) {
+					if (saque == 0) {
+						saque = 1;
+					} else {
+						saque = 0;
+					}
+				}
+				partido.setFinal();
+				
+			} else if (saque == 1) { // Juego con saque para el
+										// VST////////////////
+				numRandom = Math.random() * 100;
+				if (serveVST_1stServe > numRandom) { // Entra el primer servicio
+					numRandom = Math.random() * 100;
+					aux_ace = (serveVST_ace + returnLCL_aceAgainst) / 2;
+					if (aux_ace > numRandom) { // ACE!!!
+						pVST++;
+						Application.print("ACE!! por el VST");
+					} else { // No hay ACE, se continua el juego
+						if (pLCL > 2 && (pLCL - pVST) >= 1) { // Punto de BREAK
+							numRandom = Math.random() * 100;
+							aux_breakPoinsSaved = serveVST_breakPoinsSaved * 100
+									/ (serveVST_breakPoinsSaved + returnLCL_breakPointsWon);
+							if (aux_breakPoinsSaved > numRandom) { // Salvas el
+																	// BREAK
+								pVST++;
+							} else { // Pierdes el BREAK
+								pLCL++;
+							}
+						} else { // NO es punto de BREAK
+							numRandom = Math.random() * 100;
+							aux_firstServe = serveVST_1stServeWon * 100
+									/ (serveVST_1stServeWon + returnLCL_1stSrvReturnWon);
+							if (aux_firstServe > numRandom) { // Gana el VST con
+																// 1st servicio
+								pVST++;
+							} else { // Gana el LCL con 1st servicio
+								pLCL++;
+							}
+						}
+					}
+				} else { // Pasamos al segundo servicio
+					numRandom = Math.random() * 100;
+					aux_doubleFault = (serveVST_doubleFault + returnLCL_doubleFaultAgainst) / 2;
+					if (aux_doubleFault < numRandom) { // Entra el segundo
+														// servicio
+						if (pLCL > 2 && (pLCL - pVST) >= 1) { // Punto de BREAK
+							numRandom = Math.random() * 100;
+							aux_breakPoinsSaved = serveVST_breakPoinsSaved * 100
+									/ (serveVST_breakPoinsSaved + returnLCL_breakPointsWon);
+							if (aux_breakPoinsSaved > numRandom) { // Salvas el
+																	// BREAK
+								pVST++;
+							} else { // Pierdes el BREAK
+								pLCL++;
+							}
+						} else { // NO es punto de BREAK
+							numRandom = Math.random() * 100;
+							aux_secondServe = serveVST_2ndServeWon * 100
+									/ (serveVST_2ndServeWon + returnLCL_2stSrvReturnWon);
+							if (aux_secondServe > numRandom) { // Gana el VST con
+																// 2nd servicio
+								pVST++;
+							} else { // Gana el LCL con 2nd servicio
+								pLCL++;
+							}
+						}
+					} else { // Ha realizado doble falta
+						pLCL++;
+					}
+				}
+
+				puntoLCL = pLCL;
+				puntoVST = pVST;
+
+				if (ptieBreak%2 == 0) {
+					if (saque == 0) {
+						saque = 1;
+					} else {
+						saque = 0;
+					}
+				}
+				partido.setFinal();
+			}
+		}
 	}
 }
