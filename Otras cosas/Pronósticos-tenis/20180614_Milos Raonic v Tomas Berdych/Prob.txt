@@ -1,0 +1,59 @@
+//------PROBABILIDAD DE VICTORIA-------//
+//------Victorias del jugador LOCAL: 448
+//------Victorias del jugador VISITANTE: 552
+//------PROBABILIDAD DE VICTORIA LOCAL: 44,80%
+//------PROBABILIDAD DE VICTORIA VISITANTE: 55,20%
+
+
+//------PROBABILIDAD DE RESULTADO-------//
+PROBABILIDAD DE UN 2-0: 23,10%
+PROBABILIDAD DE UN 2-1: 21,70%
+PROBABILIDAD DE UN 0-2: 26,80%
+PROBABILIDAD DE UN 1-2: 28,40%
+
+
+//-----------PROBABILIDAD DE RESULTADOS CON SETS
+///PROBABILIDAD:  6,40%	--->>>	6-7 6-7 0-0
+///PROBABILIDAD:  4,30%	--->>>	7-6 7-6 0-0
+///PROBABILIDAD:  3,50%	--->>>	6-7 4-6 0-0
+///PROBABILIDAD:  3,00%	--->>>	6-4 7-6 0-0
+///PROBABILIDAD:  2,60%	--->>>	3-6 6-7 0-0
+///PROBABILIDAD:  2,40%	--->>>	6-7 3-6 0-0
+///PROBABILIDAD:  2,10%	--->>>	7-6 6-3 0-0
+///PROBABILIDAD:  2,10%	--->>>	4-6 6-7 0-0
+///PROBABILIDAD:  2,10%	--->>>	6-4 6-4 0-0
+///PROBABILIDAD:  1,70%	--->>>	6-3 7-6 0-0
+
+
+//-----------PROBABILIDAD OVER/UNDER
+//----------Prob OVER/UNDER de 12.5 ->> 100,00% - ,00%
+//----------Prob OVER/UNDER de 13.5 ->> 100,00% - ,00%
+//----------Prob OVER/UNDER de 14.5 ->> 99,90% - ,10%
+//----------Prob OVER/UNDER de 15.5 ->> 99,90% - ,10%
+//----------Prob OVER/UNDER de 16.5 ->> 99,70% - ,30%
+//----------Prob OVER/UNDER de 17.5 ->> 98,50% - 1,50%
+//----------Prob OVER/UNDER de 18.5 ->> 96,80% - 3,20%
+//----------Prob OVER/UNDER de 19.5 ->> 92,80% - 7,20%
+//----------Prob OVER/UNDER de 20.5 ->> 88,70% - 11,30%
+//----------Prob OVER/UNDER de 21.5 ->> 85,70% - 14,30%
+//----------Prob OVER/UNDER de 22.5 ->> 74,40% - 25,60%
+//----------Prob OVER/UNDER de 23.5 ->> 64,20% - 35,80%
+//----------Prob OVER/UNDER de 24.5 ->> 64,00% - 36,00%
+//----------Prob OVER/UNDER de 25.5 ->> 60,60% - 39,40%
+//----------Prob OVER/UNDER de 26.5 ->> 49,50% - 50,50%
+//----------Prob OVER/UNDER de 27.5 ->> 48,50% - 51,50%
+//----------Prob OVER/UNDER de 28.5 ->> 46,60% - 53,40%
+//----------Prob OVER/UNDER de 29.5 ->> 45,00% - 55,00%
+//----------Prob OVER/UNDER de 30.5 ->> 43,10% - 56,90%
+//----------Prob OVER/UNDER de 31.5 ->> 39,20% - 60,80%
+//----------Prob OVER/UNDER de 32.5 ->> 32,30% - 67,70%
+//----------Prob OVER/UNDER de 33.5 ->> 28,00% - 72,00%
+//----------Prob OVER/UNDER de 34.5 ->> 24,40% - 75,60%
+//----------Prob OVER/UNDER de 35.5 ->> 15,00% - 85,00%
+//----------Prob OVER/UNDER de 36.5 ->> 7,80% - 92,20%
+//----------Prob OVER/UNDER de 37.5 ->> 7,60% - 92,40%
+//----------Prob OVER/UNDER de 38.5 ->> 4,70% - 95,30%
+//----------Prob OVER/UNDER de 39.5 ->> ,00% - 100,00%
+//----------Prob OVER/UNDER de 40.5 ->> ,00% - 100,00%
+//----------Prob OVER/UNDER de 41.5 ->> ,00% - 100,00%
+//----------Prob OVER/UNDER de 42.5 ->> ,00% - 100,00%

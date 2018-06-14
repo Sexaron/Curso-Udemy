@@ -631,38 +631,38 @@ public class Application {
 		double aux_firstServe = 0;
 		double aux_secondServe = 0;
 
-		double serveLCL_ace = 					21.2;
-		double serveLCL_doubleFault = 			 3.3;
-		double serveLCL_1stServe = 				66.9;
-		double serveLCL_1stServeWon = 			81.9;
-		double serveLCL_2ndServeWon = 			58.7;
-		double serveLCL_breakPoinsSaved = 		73.1;
+		double serveLCL_ace = 					18.4;
+		double serveLCL_doubleFault = 			03.2;
+		double serveLCL_1stServe = 				69.1;
+		double serveLCL_1stServeWon = 			79.4;
+		double serveLCL_2ndServeWon = 			58.9;
+		double serveLCL_breakPoinsSaved = 		75.8;
 //		double serveLCL_ServicePointsWon = 0.00;
 //		double serveLCL_ServiceGamesWon = 0.00;
 
-		double returnLCL_aceAgainst = 			 9.1;
-		double returnLCL_doubleFaultAgainst = 	 3.1;
-		double returnLCL_1stSrvReturnWon = 		23.8;
-		double returnLCL_2stSrvReturnWon = 		46.1;
-		double returnLCL_breakPointsWon = 		33.0;
+		double returnLCL_aceAgainst = 			09.3;
+		double returnLCL_doubleFaultAgainst = 	03.4;
+		double returnLCL_1stSrvReturnWon = 		22.1;
+		double returnLCL_2stSrvReturnWon = 		48.3;
+		double returnLCL_breakPointsWon = 		22.2;
 //		double returnLCL_retunrPointsWon = 0.00;
 //		double returnLCL_returnGamesWon = 0.00;
 		
-		double serveVST_ace = 					 8.9;
-		double serveVST_doubleFault =			 4.4;
-		double serveVST_1stServe = 				52.2;
-		double serveVST_1stServeWon = 			72.3;
-		double serveVST_2ndServeWon = 			48.1;
-		double serveVST_breakPoinsSaved = 		47.4;
+		double serveVST_ace = 					11.4;
+		double serveVST_doubleFault =			01.9;
+		double serveVST_1stServe = 				64.4;
+		double serveVST_1stServeWon = 			82.6;
+		double serveVST_2ndServeWon = 			56.9;
+		double serveVST_breakPoinsSaved = 		73.3;
 //		double serveVST_ServicePointsWon = 0.00;
 //		double serveVST_ServiceGamesWon = 0.00;
 
 
-		double returnVST_aceAgainst = 			 5.3;
-		double returnVST_doubleFaultAgainst = 	 3.1;
-		double returnVST_1stSrvReturnWon = 		26.9;
-		double returnVST_2stSrvReturnWon = 		44.3;
-		double returnVST_breakPointsWon = 		23.1;
+		double returnVST_aceAgainst = 			10.2;
+		double returnVST_doubleFaultAgainst = 	02.8;
+		double returnVST_1stSrvReturnWon = 		21.5;
+		double returnVST_2stSrvReturnWon = 		47.9;
+		double returnVST_breakPointsWon = 		40.8;
 //		double returnVST_retunrPointsWon = 0.00;
 //		double returnVST_returnGamesWon = 0.00;
 
@@ -679,17 +679,17 @@ public class Application {
 
 			if (numRandom < 50) {
 				saque = 0;
-				Application.print("Saque para el jugador LOCAL");
+				//Application.print("Saque para el jugador LOCAL");
 			} else {
 				saque = 1;
-				Application.print("Saque para el jugador VISITANTE");
+				//Application.print("Saque para el jugador VISITANTE");
 			}
 		}
 		//////////////////////////////////////////////////////////////
 
 		if (tieBreak == 0) {
 			if (saque == 0) { // Juego con saque para el LCL////////////////
-				Application.print("Saca LOCAL");
+				//Application.print("Saca LOCAL");
 				numRandom = Math.random() * 100;
 				if (serveLCL_1stServe > numRandom) { // Entra el primer servicio
 					numRandom = Math.random() * 100;
@@ -766,7 +766,7 @@ public class Application {
 				
 			} else if (saque == 1) { // Juego con saque para el
 										// VST////////////////
-				Application.print("Saca VISITANTE");
+				//Application.print("Saca VISITANTE");
 				numRandom = Math.random() * 100;
 				if (serveVST_1stServe > numRandom) { // Entra el primer servicio
 					numRandom = Math.random() * 100;
