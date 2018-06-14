@@ -19,6 +19,7 @@ public class Application {
 	static int contTamañoArray = 0;
 	static int tieBreak = 0;
 	static int ptieBreak = 0;//si es 0 = no es tie, si es 1 sí que es tieBreak
+	static int saque = 0; // saque = 0 para el saque del LCL y 1 para el del VST
 
 	// public static Match arrayPartidos[] = new Match[NUM_PARTIDOS];
 	public static Match arrayPartidos[];
@@ -623,7 +624,7 @@ public class Application {
 	public static void jugarPunto(Match partido, Set set, int pLCL, int pVST, int ptieBreak) {
 		// Aquí se ejecutará todo el tema de las estadisticas.
 
-		int saque = 0; // saque = 0 para el saque del LCL y 1 para el del VST
+		
 		double aux_ace = 0; // para el calculo prob. de ace
 		double aux_doubleFault = 0;
 		double aux_breakPoinsSaved = 0;
