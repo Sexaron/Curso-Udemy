@@ -10,7 +10,7 @@ public class Application {
 	// VARIABLES
 	static Integer NUM_PARTIDOS = 0;
 	static Integer NUM_SETS = 0;
-	static Integer NUM_MUESTRAS = 1000;
+	static Integer NUM_MUESTRAS = 3000;
 	static int puntoLCL, juegoLCL;
 	static int puntoVST, juegoVST;
 	static boolean partidoTerminado = false;
@@ -631,15 +631,23 @@ public class Application {
 		double aux_firstServe = 0;
 		double aux_secondServe = 0;
 
-		double serveLCL_ace = 4.10;
-		double serveLCL_doubleFault = 2.10;
-		double serveLCL_1stServe = 68.70;
-		double serveLCL_1stServeWon = 71.80;
-		double serveLCL_2ndServeWon = 57.20;
-		double serveLCL_breakPoinsSaved = 66.10;
+		double serveLCL_ace = 7.5;
+		double serveLCL_doubleFault = 3.7;
+		double serveLCL_1stServe = 58.9;
+		double serveLCL_1stServeWon = 74.1;
+		double serveLCL_2ndServeWon = 53.0;
+		double serveLCL_breakPoinsSaved = 62.5;
 //		double serveLCL_ServicePointsWon = 0.00;
 //		double serveLCL_ServiceGamesWon = 0.00;
 
+		double returnLCL_aceAgainst = 6.4;
+		double returnLCL_doubleFaultAgainst = 3.2;
+		double returnLCL_1stSrvReturnWon = 30.1;
+		double returnLCL_2stSrvReturnWon = 49.7;
+		double returnLCL_breakPointsWon = 37.9;
+//		double returnLCL_retunrPointsWon = 0.00;
+//		double returnLCL_returnGamesWon = 0.00;
+		
 		double serveVST_ace = 4.10;
 		double serveVST_doubleFault = 2.10;
 		double serveVST_1stServe = 68.70;
@@ -649,13 +657,6 @@ public class Application {
 //		double serveVST_ServicePointsWon = 0.00;
 //		double serveVST_ServiceGamesWon = 0.00;
 
-		double returnLCL_aceAgainst = 7.20;
-		double returnLCL_doubleFaultAgainst = 3.40;
-		double returnLCL_1stSrvReturnWon = 34.20;
-		double returnLCL_2stSrvReturnWon = 55.30;
-		double returnLCL_breakPointsWon = 45.00;
-//		double returnLCL_retunrPointsWon = 0.00;
-//		double returnLCL_returnGamesWon = 0.00;
 
 		double returnVST_aceAgainst = 7.20;
 		double returnVST_doubleFaultAgainst = 3.40;
