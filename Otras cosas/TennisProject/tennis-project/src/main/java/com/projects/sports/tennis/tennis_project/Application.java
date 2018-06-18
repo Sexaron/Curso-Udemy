@@ -623,68 +623,69 @@ public class Application {
 	// **************************************************************************************
 	public static void jugarPunto(Match partido, Set set, int pLCL, int pVST, int ptieBreak) {
 		// Aquí se ejecutará todo el tema de las estadisticas.
-
+//24-33
 		
 		double aux_ace = 0; // para el calculo prob. de ace
 		double aux_doubleFault = 0;
 		double aux_breakPoinsSaved = 0;
 		double aux_firstServe = 0;
 		double aux_secondServe = 0;
+		double handicapLCL = 1-Math.log10(34-3)/9.5; 		//-Math.log10(24-2)/9.5;
+		double handicapVST = 1;
 
-		double serveLCL_ace = 					18.4;
-		double serveLCL_doubleFault = 			03.2;
-		double serveLCL_1stServe = 				69.1;
-		double serveLCL_1stServeWon = 			79.4;
-		double serveLCL_2ndServeWon = 			58.9;
-		double serveLCL_breakPoinsSaved = 		75.8;
+		double serveLCL_ace = 					10.9;
+		double serveLCL_doubleFault = 			03.4;
+		double serveLCL_1stServe = 				62.6;
+		double serveLCL_1stServeWon = 			75.2	*	handicapLCL;
+		double serveLCL_2ndServeWon = 			52.3	*	handicapLCL;
+		double serveLCL_breakPoinsSaved = 		44.4	*	handicapLCL;
 //		double serveLCL_ServicePointsWon = 0.00;
 //		double serveLCL_ServiceGamesWon = 0.00;
 
-		double returnLCL_aceAgainst = 			09.3;
+		double returnLCL_aceAgainst = 			13.1;
 		double returnLCL_doubleFaultAgainst = 	03.4;
-		double returnLCL_1stSrvReturnWon = 		22.1;
-		double returnLCL_2stSrvReturnWon = 		48.3;
-		double returnLCL_breakPointsWon = 		22.2;
+		double returnLCL_1stSrvReturnWon = 		12.6	*	handicapLCL;
+		double returnLCL_2stSrvReturnWon = 		48.1	*	handicapLCL;	
+		double returnLCL_breakPointsWon = 		28.6	*	handicapLCL;
 //		double returnLCL_retunrPointsWon = 0.00;
 //		double returnLCL_returnGamesWon = 0.00;
 		
-		double serveVST_ace = 					11.4;
-		double serveVST_doubleFault =			01.9;
-		double serveVST_1stServe = 				64.4;
-		double serveVST_1stServeWon = 			82.6;
-		double serveVST_2ndServeWon = 			56.9;
-		double serveVST_breakPoinsSaved = 		73.3;
+		double serveVST_ace = 					14.1;
+		double serveVST_doubleFault =			03.6;
+		double serveVST_1stServe = 			   	68.0;
+		double serveVST_1stServeWon = 			79.3	*	handicapVST;
+		double serveVST_2ndServeWon = 			52.9	*	handicapVST;
+		double serveVST_breakPoinsSaved = 		54.5	*	handicapVST;
 //		double serveVST_ServicePointsWon = 0.00;
 //		double serveVST_ServiceGamesWon = 0.00;
 
 
-		double returnVST_aceAgainst = 			10.2;
-		double returnVST_doubleFaultAgainst = 	02.8;
-		double returnVST_1stSrvReturnWon = 		21.5;
-		double returnVST_2stSrvReturnWon = 		47.9;
-		double returnVST_breakPointsWon = 		40.8;
+		double returnVST_aceAgainst = 			06.9;
+		double returnVST_doubleFaultAgainst = 	03.3;
+		double returnVST_1stSrvReturnWon = 		28.9 	*	handicapVST;
+		double returnVST_2stSrvReturnWon = 		52.7	*	handicapVST;
+		double returnVST_breakPointsWon = 		41.4	*	handicapVST;
 //		double returnVST_retunrPointsWon = 0.00;
 //		double returnVST_returnGamesWon = 0.00;
 
-//		double handicapLCL = 0.00;
-//		double handicapVST = 0.00;
+
 
 		double numRandom = 0.00;
 
-		// Sorteo de saque al inicio de cada
-		// partido//////////////////////////////////////////////
-		if (partido.inicio == true) {
-			numRandom = Math.random() * 100;
-			// Application.print("NUMRANDOM = " + numRandom);
-
-			if (numRandom < 50) {
-				saque = 0;
-				//Application.print("Saque para el jugador LOCAL");
-			} else {
-				saque = 1;
-				//Application.print("Saque para el jugador VISITANTE");
-			}
-		}
+//		// Sorteo de saque al inicio de cada
+//		// partido//////////////////////////////////////////////
+//		if (partido.inicio == true) {
+//			numRandom = Math.random() * 100;
+//			// Application.print("NUMRANDOM = " + numRandom);
+//
+//			if (numRandom < 50) {
+//				saque = 0;
+//				//Application.print("Saque para el jugador LOCAL");
+//			} else {
+//				saque = 1;
+//				//Application.print("Saque para el jugador VISITANTE");
+//			}
+//		}
 		//////////////////////////////////////////////////////////////
 
 		if (tieBreak == 0) {
@@ -696,7 +697,7 @@ public class Application {
 					aux_ace = (serveLCL_ace + returnVST_aceAgainst) / 2;
 					if (aux_ace > numRandom) { // ACE!!!
 						pLCL++;
-						Application.print("ACE!! por el LCL");
+						//Application.print("ACE!! por el LCL");
 					} else { // No hay ACE, se continua el juego
 						if (pVST > 2 && (pVST - pLCL) >= 1) { // Punto de BREAK
 							numRandom = Math.random() * 100;
@@ -773,7 +774,7 @@ public class Application {
 					aux_ace = (serveVST_ace + returnLCL_aceAgainst) / 2;
 					if (aux_ace > numRandom) { // ACE!!!
 						pVST++;
-						Application.print("ACE!! por el VST");
+						//Application.print("ACE!! por el VST");
 					} else { // No hay ACE, se continua el juego
 						if (pLCL > 2 && (pLCL - pVST) >= 1) { // Punto de BREAK
 							numRandom = Math.random() * 100;
@@ -848,7 +849,7 @@ public class Application {
 					aux_ace = (serveLCL_ace + returnVST_aceAgainst) / 2;
 					if (aux_ace > numRandom) { // ACE!!!
 						pLCL++;
-						Application.print("ACE!! por el LCL");
+						//Application.print("ACE!! por el LCL");
 					} else { // No hay ACE, se continua el juego
 						if (pVST > 2 && (pVST - pLCL) >= 1) { // Punto de BREAK
 							numRandom = Math.random() * 100;
@@ -924,7 +925,7 @@ public class Application {
 					aux_ace = (serveVST_ace + returnLCL_aceAgainst) / 2;
 					if (aux_ace > numRandom) { // ACE!!!
 						pVST++;
-						Application.print("ACE!! por el VST");
+						//Application.print("ACE!! por el VST");
 					} else { // No hay ACE, se continua el juego
 						if (pLCL > 2 && (pLCL - pVST) >= 1) { // Punto de BREAK
 							numRandom = Math.random() * 100;
