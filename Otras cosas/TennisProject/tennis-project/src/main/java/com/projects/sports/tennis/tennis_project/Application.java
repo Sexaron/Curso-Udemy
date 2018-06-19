@@ -630,41 +630,41 @@ public class Application {
 		double aux_breakPoinsSaved = 0;
 		double aux_firstServe = 0;
 		double aux_secondServe = 0;
-		double handicapLCL = 1-Math.log10(34-3)/9.5; 		//-Math.log10(24-2)/9.5;
-		double handicapVST = 1;
+		double handicapLCL = 1; 		//-Math.log10(24-2)/9.5;
+		double handicapVST = 1-Math.log10(61-53)/9.5;
 
-		double serveLCL_ace = 					10.9;
-		double serveLCL_doubleFault = 			03.4;
-		double serveLCL_1stServe = 				62.6;
-		double serveLCL_1stServeWon = 			75.2	*	handicapLCL;
-		double serveLCL_2ndServeWon = 			52.3	*	handicapLCL;
-		double serveLCL_breakPoinsSaved = 		44.4	*	handicapLCL;
+		double serveLCL_ace = 					11.1;
+		double serveLCL_doubleFault = 			04.3;
+		double serveLCL_1stServe = 				64.7;
+		double serveLCL_1stServeWon = 			74.5	*	handicapLCL;
+		double serveLCL_2ndServeWon = 			50.2	*	handicapLCL;
+		double serveLCL_breakPoinsSaved = 		62.9	*	handicapLCL;
 //		double serveLCL_ServicePointsWon = 0.00;
 //		double serveLCL_ServiceGamesWon = 0.00;
 
-		double returnLCL_aceAgainst = 			13.1;
+		double returnLCL_aceAgainst = 			06.8;
 		double returnLCL_doubleFaultAgainst = 	03.4;
-		double returnLCL_1stSrvReturnWon = 		12.6	*	handicapLCL;
-		double returnLCL_2stSrvReturnWon = 		48.1	*	handicapLCL;	
-		double returnLCL_breakPointsWon = 		28.6	*	handicapLCL;
+		double returnLCL_1stSrvReturnWon = 		29.4	*	handicapLCL;
+		double returnLCL_2stSrvReturnWon = 		54.7	*	handicapLCL;	
+		double returnLCL_breakPointsWon = 		41.2	*	handicapLCL;
 //		double returnLCL_retunrPointsWon = 0.00;
 //		double returnLCL_returnGamesWon = 0.00;
 		
-		double serveVST_ace = 					14.1;
-		double serveVST_doubleFault =			03.6;
-		double serveVST_1stServe = 			   	68.0;
-		double serveVST_1stServeWon = 			79.3	*	handicapVST;
-		double serveVST_2ndServeWon = 			52.9	*	handicapVST;
-		double serveVST_breakPoinsSaved = 		54.5	*	handicapVST;
+		double serveVST_ace = 					14.3;
+		double serveVST_doubleFault =			03.9;
+		double serveVST_1stServe = 			   	66.7;
+		double serveVST_1stServeWon = 			78.9	*	handicapVST;
+		double serveVST_2ndServeWon = 			52.6	*	handicapVST;
+		double serveVST_breakPoinsSaved = 		48.0	*	handicapVST;
 //		double serveVST_ServicePointsWon = 0.00;
 //		double serveVST_ServiceGamesWon = 0.00;
 
 
-		double returnVST_aceAgainst = 			06.9;
-		double returnVST_doubleFaultAgainst = 	03.3;
-		double returnVST_1stSrvReturnWon = 		28.9 	*	handicapVST;
-		double returnVST_2stSrvReturnWon = 		52.7	*	handicapVST;
-		double returnVST_breakPointsWon = 		41.4	*	handicapVST;
+		double returnVST_aceAgainst = 			08.5;
+		double returnVST_doubleFaultAgainst = 	04.0;
+		double returnVST_1stSrvReturnWon = 		23.6 	*	handicapVST;
+		double returnVST_2stSrvReturnWon = 		47.6	*	handicapVST;
+		double returnVST_breakPointsWon = 		37.8	*	handicapVST;
 //		double returnVST_retunrPointsWon = 0.00;
 //		double returnVST_returnGamesWon = 0.00;
 
