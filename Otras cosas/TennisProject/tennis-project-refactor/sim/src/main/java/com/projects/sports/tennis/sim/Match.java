@@ -36,7 +36,4 @@ public class Match extends Application{
 	public void addPtsSetVST() {
 		this.ptsSetVST++;
 	}
-	
-	
-
 }

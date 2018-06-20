@@ -61,11 +61,9 @@ public class Application
 				pr("----------Set " + (j+1));
 				if (arrayPartidos[i].getPtsSetLCL() < (MAX_NUM_SETS/2 + 1) && arrayPartidos[i].getPtsSetVST() < (MAX_NUM_SETS/2 + 1)){
 					calculateSet(i, j);
-				}
-				
+				}				
 			}
 		}
-
 	}
 
 	// **************************************************************************************
