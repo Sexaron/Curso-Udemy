@@ -3,7 +3,6 @@ package com.projects.sports.tennis.sim;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-
 import com.projects.sports.tennis.sim.Match;
 
 public class Application 
@@ -13,7 +12,7 @@ public class Application
 	private static int MAX_NUM_SETS;
 	public static int MAX_NUM_GAMES = 13;
 	
-	public static Match arrayPartidos[];
+	public static Match arrayMatchs[];
 	public static boolean tieBreak = false; 
 	
 	
@@ -26,10 +25,18 @@ public class Application
 		pr("Número de SETS por partido - ¿3 o 5?");
 		MAX_NUM_SETS = Integer.parseInt(br.readLine());
 		
-		arrayPartidos = new Match[NUM_PARTIDOS];
+		arrayMatchs = new Match[NUM_PARTIDOS];
 		
 		simStart();
-		calculateStadisticsMatch();
+		CalculateStadisticsMatch calculate = new CalculateStadisticsMatch();
+		calculate.probVictoria();
+		calculate.probRestuladoDePartido();
+		calculate.probResultadosExactos(arrayMatchs);
+		calculate.probNumJuegosTotalEnPartido();
+		
+		pr(arrayMatchs[0].getSet(0).getPtsGameLCL() + " - " + arrayMatchs[0].getSet(0).getPtsGameVST());
+		pr(arrayMatchs[0].getSet(1).getPtsGameLCL() + " - " + arrayMatchs[0].getSet(1).getPtsGameVST());
+		pr(arrayMatchs[0].getSet(2).getPtsGameLCL() + " - " + arrayMatchs[0].getSet(2).getPtsGameVST());
     }    
 
 	// **************************************************************************************
@@ -55,11 +62,11 @@ public class Application
 		// TODO Auto-generated method stub
 		for (int i = 0; i < NUM_PARTIDOS; i++) {
 			pr("//----------------PARTIDO " + (i+1));
-			arrayPartidos[i] = new Match(MAX_NUM_SETS);
+			arrayMatchs[i] = new Match(MAX_NUM_SETS);
 
 			for (int j = 0; j < MAX_NUM_SETS; j++) {
 				pr("----------Set " + (j+1));
-				if (arrayPartidos[i].getPtsSetLCL() < (MAX_NUM_SETS/2 + 1) && arrayPartidos[i].getPtsSetVST() < (MAX_NUM_SETS/2 + 1)){
+				if (arrayMatchs[i].getPtsSetLCL() < (MAX_NUM_SETS/2 + 1) && arrayMatchs[i].getPtsSetVST() < (MAX_NUM_SETS/2 + 1)){
 					calculateSet(i, j);
 				}				
 			}
@@ -73,15 +80,15 @@ public class Application
 	private static void calculateSet(int i, int j) {
 		// TODO Auto-generated method stub
 		int gameNumber = 0;
-		while ((arrayPartidos[i].getSet(j).getPtsGameLCL() != 6) && (arrayPartidos[i].getSet(j).getPtsGameVST() != 6)
-				&& (arrayPartidos[i].getSet(j).getPtsGameLCL() + arrayPartidos[i].getSet(j).getPtsGameVST() < 10)) {
+		while ((arrayMatchs[i].getSet(j).getPtsGameLCL() != 6) && (arrayMatchs[i].getSet(j).getPtsGameVST() != 6)
+				&& (arrayMatchs[i].getSet(j).getPtsGameLCL() + arrayMatchs[i].getSet(j).getPtsGameVST() < 10)) {
 			calculateGame(i, j, gameNumber);
 			gameNumber++;
 		}
 
-		if ((arrayPartidos[i].getSet(j).getPtsGameLCL() == 5) && (arrayPartidos[i].getSet(j).getPtsGameVST() == 5)) {
-			while((arrayPartidos[i].getSet(j).getPtsGameLCL() !=7) && (arrayPartidos[i].getSet(j).getPtsGameVST() != 7)) {
-				if((arrayPartidos[i].getSet(j).getPtsGameLCL() == 6) && (arrayPartidos[i].getSet(j).getPtsGameVST() == 6)) {
+		if ((arrayMatchs[i].getSet(j).getPtsGameLCL() == 5) && (arrayMatchs[i].getSet(j).getPtsGameVST() == 5)) {
+			while((arrayMatchs[i].getSet(j).getPtsGameLCL() !=7) && (arrayMatchs[i].getSet(j).getPtsGameVST() != 7)) {
+				if((arrayMatchs[i].getSet(j).getPtsGameLCL() == 6) && (arrayMatchs[i].getSet(j).getPtsGameVST() == 6)) {
 					calculateTieBreak(i, j, gameNumber);
 				}else {
 					calculateGame(i, j, gameNumber);
@@ -90,10 +97,10 @@ public class Application
 			}
 		}
 		
-		if (arrayPartidos[i].getSet(j).getPtsGameLCL() > arrayPartidos[i].getSet(j).getPtsGameVST()) {
-			arrayPartidos[i].addPtsSetLCL();	//Set para el local		
+		if (arrayMatchs[i].getSet(j).getPtsGameLCL() > arrayMatchs[i].getSet(j).getPtsGameVST()) {
+			arrayMatchs[i].addPtsSetLCL();	//Set para el local		
 		} else {
-			arrayPartidos[i].addPtsSetVST();	//Set para el visitante
+			arrayMatchs[i].addPtsSetVST();	//Set para el visitante
 		}
 	}
 
@@ -105,15 +112,16 @@ public class Application
 		// TODO Auto-generated method stub
 		tieBreak = true;
 		
-		while (((arrayPartidos[i].getSet(j).getGame(gameNumber).getPtsLCL() < 7) && (arrayPartidos[i].getSet(j).getGame(gameNumber).getPtsVST() < 7))
-			|| (Math.abs(arrayPartidos[i].getSet(j).getGame(gameNumber).getPtsLCL()-arrayPartidos[i].getSet(j).getGame(gameNumber).getPtsVST()) < 2)) {
-			playPoint(arrayPartidos[i].getSet(j), gameNumber);
+		while (((arrayMatchs[i].getSet(j).getGame(gameNumber).getPtsLCL() < 7) && (arrayMatchs[i].getSet(j).getGame(gameNumber).getPtsVST() < 7))
+			|| (Math.abs(arrayMatchs[i].getSet(j).getGame(gameNumber).getPtsLCL()-arrayMatchs[i].getSet(j).getGame(gameNumber).getPtsVST()) < 2)) {
+			new PlayPoint(arrayMatchs[i].getSet(j), gameNumber);
+//			playPoint(arrayMatchs[i].getSet(j), gameNumber);
 		}
 		
-		if(arrayPartidos[i].getSet(j).getGame(gameNumber).getPtsLCL() > arrayPartidos[i].getSet(j).getGame(gameNumber).getPtsVST()) {
-			arrayPartidos[i].getSet(j).addPtsGameLCL();  //juego para el jugador LOCAL
+		if(arrayMatchs[i].getSet(j).getGame(gameNumber).getPtsLCL() > arrayMatchs[i].getSet(j).getGame(gameNumber).getPtsVST()) {
+			arrayMatchs[i].getSet(j).addPtsGameLCL();  //juego para el jugador LOCAL
 		} else {
-			arrayPartidos[i].getSet(j).addPtsGameVST();  //juego para el jugador VISITANTE
+			arrayMatchs[i].getSet(j).addPtsGameVST();  //juego para el jugador VISITANTE
 		}
 		
 		tieBreak = false;
@@ -125,43 +133,20 @@ public class Application
 	
 	private static void calculateGame(int i, int j, int gameNumber) {
 		// TODO Auto-generated method stub
-		while (((arrayPartidos[i].getSet(j).getGame(gameNumber).getPtsLCL()) < 4 && (arrayPartidos[i].getSet(j).getGame(gameNumber).getPtsVST() < 4)) 
-				|| (Math.abs(arrayPartidos[i].getSet(j).getGame(gameNumber).getPtsLCL() - arrayPartidos[i].getSet(j).getGame(gameNumber).getPtsVST()) < 2)) {
-			playPoint(arrayPartidos[i].getSet(j), gameNumber);
+		while (((arrayMatchs[i].getSet(j).getGame(gameNumber).getPtsLCL()) < 4 && (arrayMatchs[i].getSet(j).getGame(gameNumber).getPtsVST() < 4)) 
+				|| (Math.abs(arrayMatchs[i].getSet(j).getGame(gameNumber).getPtsLCL() - arrayMatchs[i].getSet(j).getGame(gameNumber).getPtsVST()) < 2)) {
+			new PlayPoint(arrayMatchs[i].getSet(j), gameNumber);
+//			playPoint(arrayMatchs[i].getSet(j), gameNumber);
 		}
 		
-		if(arrayPartidos[i].getSet(j).getGame(gameNumber).getPtsLCL() > arrayPartidos[i].getSet(j).getGame(gameNumber).getPtsVST()) {
-			arrayPartidos[i].getSet(j).addPtsGameLCL();  //juego para el jugador LOCAL
+		if(arrayMatchs[i].getSet(j).getGame(gameNumber).getPtsLCL() > arrayMatchs[i].getSet(j).getGame(gameNumber).getPtsVST()) {
+			arrayMatchs[i].getSet(j).addPtsGameLCL();  //juego para el jugador LOCAL
 		} else {
-			arrayPartidos[i].getSet(j).addPtsGameVST();  //juego para el jugador VISITANTE
-		}
-	}
-
-	// **************************************************************************************
-
-	// **************************************************************************************
-	
-	private static void playPoint(Set thisSet, int gameNumber) {
-		// TODO Auto-generated method stub
-		double numRandom = Math.random()*100;
-		if(numRandom < 50.0) {
-			thisSet.getGame(gameNumber).addPtsLCL();
-		} else {
-			thisSet.getGame(gameNumber).addPtsVST();
+			arrayMatchs[i].getSet(j).addPtsGameVST();  //juego para el jugador VISITANTE
 		}
 	}
 	
 	// **************************************************************************************
 
 	// **************************************************************************************
-
-	/**
-	 * Realizamos el cálculo según las estadísticas de cada jugador
-	 */
-	
-	private static void calculateStadisticsMatch() {
-		// TODO Auto-generated method stub
-		
-	}
-	
 }
