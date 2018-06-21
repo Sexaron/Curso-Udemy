@@ -6,11 +6,11 @@ import java.io.InputStreamReader;
 
 public class StadisticsInput extends Application{
 	
-	public static double aux_ace; // para el calculo prob. de ace
-	public static double aux_doubleFault;
-	public static double aux_breakPointsSaved;
-	public static double aux_firstServe;
-	public static double aux_secondServe;
+//	public static double aux_ace; // para el calculo prob. de ace
+//	public static double aux_doubleFault;
+//	public static double aux_breakPointsSaved;
+//	public static double aux_firstServe;
+//	public static double aux_secondServe;
 	public static double handicapLCL; 		//-Math.log10(24-2)/9.5;
 	public static double handicapVST;
 	public static double rankingLCL;
@@ -46,11 +46,6 @@ public class StadisticsInput extends Application{
 	
 	public StadisticsInput(String opSelected) throws IllegalArgumentException, IOException {
 
-		this.aux_ace = 0; // para el calculo prob. de ace
-		this.aux_doubleFault = 0;
-		this.aux_breakPointsSaved = 0;
-		this.aux_firstServe = 0;
-		this.aux_secondServe = 0;
 		this.rankingLCL = 0;
 		this.rankingVST = 0;
 		
