@@ -95,7 +95,7 @@ public class PlayPoint {
 					}
 				}
 
-			} else if (Application.kick == 0) {
+			} else if (Application.kick == 1) {
 				// --Saca VISITANTE--
 				numRandom = Math.random() * 100;
 				if (StadisticsInput.serveVST_1stServe > numRandom) { // Entra el primer servicio
