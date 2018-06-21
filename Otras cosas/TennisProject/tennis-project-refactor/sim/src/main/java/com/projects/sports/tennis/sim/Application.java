@@ -14,6 +14,8 @@ public class Application
 	
 	public static Match arrayMatchs[];
 	public static boolean tieBreak = false; 
+	public static String select;
+	public static int kick = 0; //saque
 	
 	
     public static void main( String[] args ) throws IllegalArgumentException, IOException
@@ -25,8 +27,12 @@ public class Application
 		pr("Número de SETS por partido - ¿3 o 5?");
 		MAX_NUM_SETS = Integer.parseInt(br.readLine());
 		
+		pr("¿Introducir a mano las estadísticas? S/N");
+		select = br.readLine().toUpperCase();
+		
 		arrayMatchs = new Match[NUM_PARTIDOS];
 		
+		new StadisticsInput(select);
 		simStart();
 		CalculateStadisticsMatch calculate = new CalculateStadisticsMatch();
 		calculate.probVictoria();
