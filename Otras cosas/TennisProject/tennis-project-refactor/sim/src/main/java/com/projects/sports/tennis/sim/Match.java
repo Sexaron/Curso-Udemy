@@ -2,7 +2,7 @@ package com.projects.sports.tennis.sim;
 
 public class Match extends Application{
 
-	private Set[] set;
+	public Set[] set;
 	private int ptsSetLCL; // de 0 a 2 o de 0 a 5
 	private int ptsSetVST; // de 0 a 2 o de 0 a 5
 	

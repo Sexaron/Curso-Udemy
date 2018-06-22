@@ -9,6 +9,8 @@ public class PlayPoint {
 	double aux_breakPointsSaved = 0.00;
 	double aux_firstServe = 0.00;
 	double aux_secondServe = 0.00;
+	int aux_ptsLCL = 0;
+	int aux_ptsVST = 0;
 
 	public PlayPoint(Set thisSet, int gameNumber) {
 		
@@ -28,8 +30,9 @@ public class PlayPoint {
 					if (aux_ace > numRandom) { // ACE!!!
 						thisSet.getGame(gameNumber).addPtsLCL(); // Punto LCL
 					} else { // NO hay ACE, se continúa el juego
-						if (thisSet.getGame(gameNumber).getPtsVST() > 2 && (thisSet.getGame(gameNumber).getPtsVST()
-								- thisSet.getGame(gameNumber).getPtsLCL()) >= 1) { // Punto de BREAK
+						aux_ptsVST = thisSet.getGame(gameNumber).getPtsVST();
+						aux_ptsLCL = thisSet.getGame(gameNumber).getPtsLCL();
+						if (aux_ptsVST > 2 && (aux_ptsVST - aux_ptsLCL) >= 1) { // Punto de BREAK
 							numRandom = Math.random() * 100;
 							aux_breakPointsSaved = StadisticsInput.serveLCL_breakPointsSaved * 100
 									/ (StadisticsInput.serveLCL_breakPointsSaved
@@ -57,8 +60,9 @@ public class PlayPoint {
 					aux_doubleFault = (StadisticsInput.serveLCL_doubleFault
 							+ StadisticsInput.returnVST_doubleFaultAgainst) / 2;
 					if (aux_doubleFault < numRandom) { // Entra el segundo servicio
-						if (thisSet.getGame(gameNumber).getPtsVST() > 2 && (thisSet.getGame(gameNumber).getPtsVST()
-								- thisSet.getGame(gameNumber).getPtsLCL()) >= 1) { // Punto de BREAK
+						aux_ptsVST = thisSet.getGame(gameNumber).getPtsVST();
+						aux_ptsLCL = thisSet.getGame(gameNumber).getPtsLCL();
+						if (aux_ptsVST > 2 && (aux_ptsVST - aux_ptsLCL) >= 1) { // Punto de BREAK
 							numRandom = Math.random() * 100;
 							aux_breakPointsSaved = StadisticsInput.serveLCL_breakPointsSaved * 100
 									/ (StadisticsInput.serveLCL_breakPointsSaved
@@ -83,11 +87,11 @@ public class PlayPoint {
 						thisSet.getGame(gameNumber).addPtsVST();
 					}
 				}
-
-				if ((thisSet.getGame(gameNumber).getPtsLCL() > 3
-						&& (thisSet.getGame(gameNumber).getPtsLCL() - thisSet.getGame(gameNumber).getPtsVST()) > 1)
-						|| thisSet.getGame(gameNumber).getPtsVST() > 3 && (thisSet.getGame(gameNumber).getPtsVST()
-								- thisSet.getGame(gameNumber).getPtsLCL()) > 1) {
+				
+				aux_ptsVST = thisSet.getGame(gameNumber).getPtsVST();
+				aux_ptsLCL = thisSet.getGame(gameNumber).getPtsLCL();
+				if ((aux_ptsLCL > 3
+						&& (aux_ptsLCL - aux_ptsVST) > 1) || aux_ptsVST > 3 && (aux_ptsVST - aux_ptsLCL) > 1) {
 					if (Application.kick == 0) {
 						Application.kick = 1;
 					} else {
@@ -104,8 +108,9 @@ public class PlayPoint {
 					if (aux_ace > numRandom) { // ACE!!!
 						thisSet.getGame(gameNumber).addPtsVST(); // Punto VST
 					} else { // NO hay ACE, se continúa el juego
-						if (thisSet.getGame(gameNumber).getPtsLCL() > 2 && (thisSet.getGame(gameNumber).getPtsLCL()
-								- thisSet.getGame(gameNumber).getPtsVST()) >= 1) { // Punto de BREAK
+						aux_ptsVST = thisSet.getGame(gameNumber).getPtsVST();
+						aux_ptsLCL = thisSet.getGame(gameNumber).getPtsLCL();
+						if (aux_ptsLCL > 2 && (aux_ptsLCL - aux_ptsVST) >= 1) { // Punto de BREAK
 							numRandom = Math.random() * 100;
 							aux_breakPointsSaved = StadisticsInput.serveVST_breakPointsSaved * 100
 									/ (StadisticsInput.serveVST_breakPointsSaved
@@ -133,8 +138,9 @@ public class PlayPoint {
 					aux_doubleFault = (StadisticsInput.serveVST_doubleFault
 							+ StadisticsInput.returnLCL_doubleFaultAgainst) / 2;
 					if (aux_doubleFault < numRandom) { // Entra el segundo servicio
-						if (thisSet.getGame(gameNumber).getPtsLCL() > 2 && (thisSet.getGame(gameNumber).getPtsLCL()
-								- thisSet.getGame(gameNumber).getPtsVST()) >= 1) { // Punto de BREAK
+						aux_ptsVST = thisSet.getGame(gameNumber).getPtsVST();
+						aux_ptsLCL = thisSet.getGame(gameNumber).getPtsLCL();
+						if (aux_ptsLCL > 2 && (aux_ptsLCL - aux_ptsVST) >= 1) { // Punto de BREAK
 							numRandom = Math.random() * 100;
 							aux_breakPointsSaved = StadisticsInput.serveVST_breakPointsSaved * 100
 									/ (StadisticsInput.serveVST_breakPointsSaved
@@ -159,11 +165,10 @@ public class PlayPoint {
 						thisSet.getGame(gameNumber).addPtsLCL();
 					}
 				}
-
-				if ((thisSet.getGame(gameNumber).getPtsLCL() > 3
-						&& (thisSet.getGame(gameNumber).getPtsLCL() - thisSet.getGame(gameNumber).getPtsVST()) > 1)
-						|| thisSet.getGame(gameNumber).getPtsVST() > 3 && (thisSet.getGame(gameNumber).getPtsVST()
-								- thisSet.getGame(gameNumber).getPtsLCL()) > 1) {
+				
+				aux_ptsVST = thisSet.getGame(gameNumber).getPtsVST();
+				aux_ptsLCL = thisSet.getGame(gameNumber).getPtsLCL();
+				if ((aux_ptsLCL > 3	&& (aux_ptsLCL - aux_ptsVST) > 1) || aux_ptsVST > 3 && (aux_ptsVST - aux_ptsLCL) > 1) {
 					if (Application.kick == 0) {
 						Application.kick = 1;
 					} else {
