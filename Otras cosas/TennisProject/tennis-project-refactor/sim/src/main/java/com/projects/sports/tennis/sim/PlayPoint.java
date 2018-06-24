@@ -18,8 +18,8 @@ public class PlayPoint {
 		// thisSet.getGame(gameNumber).addPtsLCL();
 		// } else {
 		// thisSet.getGame(gameNumber).addPtsVST();
-		// }
-
+		// }		
+		
 		if (Application.tieBreak == false) {
 			if (Application.kick == 0) {
 				// --Saca LOCAL--
@@ -76,7 +76,7 @@ public class PlayPoint {
 							numRandom = Math.random() * 100;
 							aux_secondServe = StadisticsInput.serveLCL_2ndServeWon * 100
 									/ (StadisticsInput.serveLCL_2ndServeWon
-											+ StadisticsInput.returnVST_2stSrvReturnWon);
+											+ StadisticsInput.returnVST_2ndSrvReturnWon);
 							if (aux_secondServe > numRandom) { // Gana el LCL con 2nd servicio
 								thisSet.getGame(gameNumber).addPtsLCL();
 							} else { // Gana el VST con 2nd servicio
@@ -154,7 +154,7 @@ public class PlayPoint {
 							numRandom = Math.random() * 100;
 							aux_secondServe = StadisticsInput.serveVST_2ndServeWon * 100
 									/ (StadisticsInput.serveVST_2ndServeWon
-											+ StadisticsInput.returnLCL_2stSrvReturnWon);
+											+ StadisticsInput.returnLCL_2ndSrvReturnWon);
 							if (aux_secondServe > numRandom) { // Gana el VST con 2nd servicio
 								thisSet.getGame(gameNumber).addPtsVST();
 							} else { // Gana el LCL con 2nd servicio
@@ -200,7 +200,7 @@ public class PlayPoint {
 				} else {	// Segundo servicio 
 					numRandom = Math.random()*100;
 					aux_tieBreakPoint =  (StadisticsInput.serveLCL_breakPointsSaved + StadisticsInput.serveLCL_2ndServeWon)/2 * 100
-							/((StadisticsInput.returnVST_breakPointsWon + StadisticsInput.returnVST_2stSrvReturnWon)/2 
+							/((StadisticsInput.returnVST_breakPointsWon + StadisticsInput.returnVST_2ndSrvReturnWon)/2 
 							+ (StadisticsInput.serveLCL_breakPointsSaved + StadisticsInput.serveLCL_2ndServeWon)/2);
 					if (aux_tieBreakPoint > numRandom) { // Salva el punto de saque
 						thisSet.getGame(gameNumber).addPtsLCL();
@@ -230,7 +230,7 @@ public class PlayPoint {
 				} else {	// Segundo servicio 
 					numRandom = Math.random()*100;
 					aux_tieBreakPoint =  (StadisticsInput.serveVST_breakPointsSaved + StadisticsInput.serveVST_2ndServeWon)/2 * 100
-							/((StadisticsInput.returnLCL_breakPointsWon + StadisticsInput.returnLCL_2stSrvReturnWon)/2 
+							/((StadisticsInput.returnLCL_breakPointsWon + StadisticsInput.returnLCL_2ndSrvReturnWon)/2 
 							+ (StadisticsInput.serveVST_breakPointsSaved + StadisticsInput.serveVST_2ndServeWon)/2);
 					if (aux_tieBreakPoint > numRandom) { // Salva el punto de saque
 						thisSet.getGame(gameNumber).addPtsVST();

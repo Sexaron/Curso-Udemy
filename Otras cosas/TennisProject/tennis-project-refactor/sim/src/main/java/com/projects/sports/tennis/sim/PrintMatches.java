@@ -16,6 +16,8 @@ public class PrintMatches extends Application {
 			prl("\n");
 			indexM++;
 		}
+		
+		pr("\n\n");
 	}
 
 }

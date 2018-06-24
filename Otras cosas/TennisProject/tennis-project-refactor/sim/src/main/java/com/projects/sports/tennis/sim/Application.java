@@ -11,7 +11,7 @@ public class Application
 {
 	
 	private static int NUM_PARTIDOS;
-	private static int MAX_NUM_SETS;
+	public static int MAX_NUM_SETS;
 	public static int MAX_NUM_GAMES = 13;
 	
 	public static Match arrayMatches[];
@@ -30,17 +30,17 @@ public class Application
 		pr("Número de SETS por partido - ¿3 o 5?");
 		MAX_NUM_SETS = Integer.parseInt(br.readLine());
 		
-		pr("¿Introducir a mano las estadísticas? S/N");
+		pr("¿Introducir a mano las estadísticas? S/N/R - Sí/No/Recalculate");
 		select = br.readLine().toUpperCase();
 		
-		arrayMatches = new Match[NUM_PARTIDOS];
+		
 		
 		new StadisticsInput(select);
 		simStart();
 		new PrintMatches(arrayMatches);
 		CalculateStadisticsMatch calculate = new CalculateStadisticsMatch(arrayMatches);
 		calculate.probVictoria();
-		calculate.probRestuladoDePartido();
+		calculate.probResultadoDePartido();
 		calculate.probResultadosExactos();
 		calculate.probNumJuegosTotalEnPartido();
     }    
@@ -68,7 +68,8 @@ public class Application
 	 * Simulación de todo los partidos
 	 */
 
-	private static void simStart() {
+	protected static void simStart() {
+		arrayMatches = new Match[NUM_PARTIDOS];
 		// TODO Auto-generated method stub
 		for (int i = 0; i < NUM_PARTIDOS; i++) {
 			arrayMatches[i] = new Match(MAX_NUM_SETS);
@@ -143,7 +144,7 @@ public class Application
 		// TODO Auto-generated method stub
 		while (((arrayMatches[i].getSet(j).getGame(gameNumber).getPtsLCL()) < 4 && (arrayMatches[i].getSet(j).getGame(gameNumber).getPtsVST() < 4)) 
 				|| (Math.abs(arrayMatches[i].getSet(j).getGame(gameNumber).getPtsLCL() - arrayMatches[i].getSet(j).getGame(gameNumber).getPtsVST()) < 2)) {
-			new PlayPoint(arrayMatches[i].getSet(j), gameNumber);
+ 			new PlayPoint(arrayMatches[i].getSet(j), gameNumber);
 //			playPoint(arrayMatchs[i].getSet(j), gameNumber);
 		}
 		
