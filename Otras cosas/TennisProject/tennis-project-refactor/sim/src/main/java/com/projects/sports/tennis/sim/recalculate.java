@@ -45,22 +45,22 @@ public class recalculate extends Application {
 					simStart();
 					CalculateStadisticsMatch calculate = new CalculateStadisticsMatch(arrayMatches);
 					
-					pr("handicapVST = " + StadisticsInput.handicapVST);
 					pr("handicapLCL = " + StadisticsInput.handicapLCL);
+					pr("handicapVST = " + StadisticsInput.handicapVST);					
 					
 					CalculateStadisticsMatch.recalculateVictory();
 					calculate.handicapRecalculate(31.5);
 					check = calculate.checkHandicap(optionSelected);
 							
 					if (check == true) {
-						pr("//----------handicapVST debe tener VALOR ->> " + StadisticsInput.handicapVST);
 						pr("//----------handicapLCL debe tener VALOR ->> " + StadisticsInput.handicapLCL);
+						pr("//----------handicapVST debe tener VALOR ->> " + StadisticsInput.handicapVST);
 					} else {
 						double reductionI = (double)i/100; 
 						double reductionJ = (double)j/100; 
 						
-						StadisticsInput.handicapLCL = 1 - reductionI;
-						StadisticsInput.handicapVST = 1 - reductionJ;
+						StadisticsInput.handicapLCL = 1 - reductionJ;
+						StadisticsInput.handicapVST = 1 - reductionI;
 
 						StadisticsInput.serveLCL_1stServeWon = aux_serveLCL_1stServeWon * StadisticsInput.handicapLCL;
 						StadisticsInput.serveLCL_2ndServeWon = aux_serveLCL_2ndServeWon * StadisticsInput.handicapLCL;

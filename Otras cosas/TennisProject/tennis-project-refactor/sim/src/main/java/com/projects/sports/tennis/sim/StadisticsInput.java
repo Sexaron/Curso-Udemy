@@ -68,34 +68,34 @@ public class StadisticsInput extends Application{
 
 	public void defaultStadistics() {
 		// TODO Auto-generated method stub
-		this.handicapLCL = 1; 		//-Math.log10(24-2)/9.5;
-		this.handicapVST = 1;
-		
-		this.serveLCL_ace 					= 	11.8;	//11.1;
-		this.serveLCL_doubleFault 			= 	01.8;
-		this.serveLCL_1stServe 				=	66.3;		//64.7;
-		this.serveLCL_1stServeWon 			= 	82.4	*	handicapLCL;
-		this.serveLCL_2ndServeWon 			= 	66.7	*	handicapLCL;
-		this.serveLCL_breakPointsSaved 		=	80.0	*	handicapLCL;
+		this.handicapLCL = 0.96; 		//-Math.log10(24-2)/9.5;
+		this.handicapVST = 0.9715;
 
-		this.returnLCL_aceAgainst 			=	09.7;	//06.8;
-		this.returnLCL_doubleFaultAgainst 	= 	03.6;
+		this.serveLCL_ace 					= 	05.3;
+		this.serveLCL_doubleFault 			= 	02.5;
+		this.serveLCL_1stServe 				=	68.0;
+		this.serveLCL_1stServeWon 			= 	73.1	*	handicapLCL;
+		this.serveLCL_2ndServeWon 			= 	52.0	*	handicapLCL;
+		this.serveLCL_breakPointsSaved 		=	72.7	*	handicapLCL;
+
+		this.returnLCL_aceAgainst 			=	08.0;
+		this.returnLCL_doubleFaultAgainst 	= 	04.8;
 		this.returnLCL_1stSrvReturnWon 		=	32.2	*	handicapLCL;
-		this.returnLCL_2ndSrvReturnWon 		=	48.6	*	handicapLCL;	
-		this.returnLCL_breakPointsWon 		=	41.5	*	handicapLCL;
+		this.returnLCL_2ndSrvReturnWon 		=	52.6	*	handicapLCL;	
+		this.returnLCL_breakPointsWon 		=	40.5	*	handicapLCL;
 		
-		this.serveVST_ace 					=	05.9;	//14.3;
-		this.serveVST_doubleFault 			=	04.8;
-		this.serveVST_1stServe 				=  	59.1;
-		this.serveVST_1stServeWon 			=	73.6	*	handicapVST;
-		this.serveVST_2ndServeWon 			=	52.6	*	handicapVST;
-		this.serveVST_breakPointsSaved 		=	50.0	*	handicapVST;
+		this.serveVST_ace 					=	07.1;
+		this.serveVST_doubleFault 			=	03.0;
+		this.serveVST_1stServe 				=  	65.7;
+		this.serveVST_1stServeWon 			=	74.8	*	handicapVST;
+		this.serveVST_2ndServeWon 			=	60.3	*	handicapVST;
+		this.serveVST_breakPointsSaved 		=	70.0	*	handicapVST;
 
-		this.returnVST_aceAgainst 			=	14.2;	//08.5;
-		this.returnVST_doubleFaultAgainst 	= 	08.5;
-		this.returnVST_1stSrvReturnWon 		=	25.7 	*	handicapVST;
-		this.returnVST_2ndSrvReturnWon 		=	49.5	*	handicapVST;
-		this.returnVST_breakPointsWon 		=	35.0	*	handicapVST;
+		this.returnVST_aceAgainst 			=	05.3;
+		this.returnVST_doubleFaultAgainst 	= 	02.9;
+		this.returnVST_1stSrvReturnWon 		=	22.4 	*	handicapVST;
+		this.returnVST_2ndSrvReturnWon 		=	53.4	*	handicapVST;
+		this.returnVST_breakPointsWon 		=	30.0	*	handicapVST;
 	}
 	
 	// **************************************************************************************
@@ -106,19 +106,23 @@ public class StadisticsInput extends Application{
 		// TODO Auto-generated method stub
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		
-		pr("LOCAL - Ranking");
-		this.rankingLCL = Double.parseDouble(br.readLine());
-		pr("VISITANTE - Ranking");
-		this.rankingVST = Double.parseDouble(br.readLine());
-		pr("Ranking LOCAL ->> " + this.rankingLCL + " VS " + rankingVST + " <-- Ranking VISITANTE\n\n");
+		pr("LOCAL - Handicap");
+//		pr("LOCAL - Ranking");
+//		this.rankingLCL = Double.parseDouble(br.readLine());
+		this.handicapLCL = Double.parseDouble(br.readLine());
+		pr("VISITANTE - Handicap");
+//		pr("VISITANTE - Ranking");
+//		this.rankingVST = Double.parseDouble(br.readLine());
+		this.handicapVST = Double.parseDouble(br.readLine());
+		pr("Handicap LOCAL ->> " + this.handicapLCL + " VS " + this.handicapVST + " <-- Handicap VISITANTE\n\n");
 		
-		if(this.rankingLCL < this.rankingVST) {
-			this.handicapVST = 1-Math.log10(this.rankingLCL-this.rankingVST)/CONS;
-			this.handicapLCL = 1;
-		} else {
-			this.handicapLCL = 1-Math.log10(this.rankingVST-this.rankingLCL)/CONS;
-			this.handicapVST = 1;
-		}
+//		if(this.rankingLCL < this.rankingVST) {
+//			this.handicapVST = 1-Math.log10(this.rankingLCL-this.rankingVST)/CONS;
+//			this.handicapLCL = 1;
+//		} else {
+//			this.handicapLCL = 1-Math.log10(this.rankingVST-this.rankingLCL)/CONS;
+//			this.handicapVST = 1;
+//		}
 		
 		//-------------------------LOCAL----------------------
 		
