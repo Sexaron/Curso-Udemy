@@ -242,7 +242,7 @@ public class CalculateStadisticsMatch extends Application {
 				return false;
 			}
 		} else if(2 == option){
-			if (probTotalLCL > 65.00 && probTotalLCL < 75.00) { 
+			if (probTotalLCL > 55.00 && probTotalLCL < 65.00) { 
 				return true;
 			} else {
 				return false;
