@@ -68,34 +68,34 @@ public class StadisticsInput extends Application{
 
 	public void defaultStadistics() {
 		// TODO Auto-generated method stub
-		this.handicapLCL = 1; 		//-Math.log10(24-2)/9.5;
-		this.handicapVST = 0.98;
+		this.handicapLCL = 0.9125; 		//-Math.log10(24-2)/9.5;
+		this.handicapVST = 0.9575;
 		
 		this.serveLCL_ace 					= 	04.4;
-		this.serveLCL_doubleFault 			= 	01.8;
-		this.serveLCL_1stServe 				=	69.8;
-		this.serveLCL_1stServeWon 			= 	73.0	*	handicapLCL;
-		this.serveLCL_2ndServeWon 			= 	65.0	*	handicapLCL;
-		this.serveLCL_breakPointsSaved 		=	78.9	*	handicapLCL;
+		this.serveLCL_doubleFault 			= 	02.7;
+		this.serveLCL_1stServe 				=	54.7;
+		this.serveLCL_1stServeWon 			= 	71.4	*	handicapLCL;
+		this.serveLCL_2ndServeWon 			= 	57.0	*	handicapLCL;
+		this.serveLCL_breakPointsSaved 		=	75.0	*	handicapLCL;
 
-		this.returnLCL_aceAgainst 			=	16.2;
-		this.returnLCL_doubleFaultAgainst 	= 	02.9;
-		this.returnLCL_1stSrvReturnWon 		=	20.0	*	handicapLCL;
-		this.returnLCL_2ndSrvReturnWon 		=	38.4	*	handicapLCL;	
-		this.returnLCL_breakPointsWon 		=	43.8	*	handicapLCL;
-		
-		this.serveVST_ace 					=	04.0;
-		this.serveVST_doubleFault 			=	05.1;
-		this.serveVST_1stServe 				=  	60.0;
-		this.serveVST_1stServeWon 			=	64.4	*	handicapVST;
-		this.serveVST_2ndServeWon 			=	52.4	*	handicapVST;
-		this.serveVST_breakPointsSaved 		=	60.0	*	handicapVST;
+		this.returnLCL_aceAgainst 			=	11.3;
+		this.returnLCL_doubleFaultAgainst 	= 	04.1;
+		this.returnLCL_1stSrvReturnWon 		=	31.1	*	handicapLCL;
+		this.returnLCL_2ndSrvReturnWon 		=	55.1	*	handicapLCL;	
+		this.returnLCL_breakPointsWon 		=	43.3	*	handicapLCL;
 
-		this.returnVST_aceAgainst 			=	15.0;
-		this.returnVST_doubleFaultAgainst 	= 	02.7;
-		this.returnVST_1stSrvReturnWon 		=	22.8 	*	handicapVST;
-		this.returnVST_2ndSrvReturnWon 		=	41.3	*	handicapVST;
-		this.returnVST_breakPointsWon 		=	36.4	*	handicapVST;
+		this.serveVST_ace 					=	08.6;
+		this.serveVST_doubleFault 			=	01.6;
+		this.serveVST_1stServe 				=  	69.0;
+		this.serveVST_1stServeWon 			=	78.3	*	handicapVST;
+		this.serveVST_2ndServeWon 			=	60.3	*	handicapVST;
+		this.serveVST_breakPointsSaved 		=	66.7	*	handicapVST;
+
+		this.returnVST_aceAgainst 			=	19.8;
+		this.returnVST_doubleFaultAgainst 	= 	02.2;
+		this.returnVST_1stSrvReturnWon 		=	19.4 	*	handicapVST;
+		this.returnVST_2ndSrvReturnWon 		=	43.1	*	handicapVST;
+		this.returnVST_breakPointsWon 		=	25.0	*	handicapVST;
 	}
 	
 	// **************************************************************************************

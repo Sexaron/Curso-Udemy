@@ -39,6 +39,11 @@ public class recalculate extends Application {
 		pr("3 - Por ambas");
 		int optionSelected = Integer.parseInt(br.readLine());
 		
+		pr("Cálculo para el local o visitante?");
+		pr("1 - Local");
+		pr("2 - Visitante");
+		int lclOvst = Integer.parseInt(br.readLine());
+		
 		for (int i = 0; i < 101; i++) {
 			for (int j = 0; j < 101; j++) {
 
@@ -50,17 +55,23 @@ public class recalculate extends Application {
 					
 					CalculateStadisticsMatch.recalculateVictory();
 					calculate.handicapRecalculate(31.5);
-					check = calculate.checkHandicap(optionSelected);
+					check = calculate.checkHandicap(optionSelected, lclOvst);
 							
 					if (check == true) {
 						pr("//----------handicapLCL debe tener VALOR ->> " + StadisticsInput.handicapLCL);
 						pr("//----------handicapVST debe tener VALOR ->> " + StadisticsInput.handicapVST);
 					} else {
+						
 						double reductionI = (double)i/100; 
 						double reductionJ = (double)j/100; 
 						
-						StadisticsInput.handicapLCL = 1 - reductionJ;
-						StadisticsInput.handicapVST = 1 - reductionI;
+						if (lclOvst == 1) {
+							StadisticsInput.handicapLCL = 1 - reductionJ;
+							StadisticsInput.handicapVST = 1 - reductionI;
+						}else {
+							StadisticsInput.handicapVST = 1 - reductionJ;
+							StadisticsInput.handicapLCL = 1 - reductionI;
+						}
 
 						StadisticsInput.serveLCL_1stServeWon = aux_serveLCL_1stServeWon * StadisticsInput.handicapLCL;
 						StadisticsInput.serveLCL_2ndServeWon = aux_serveLCL_2ndServeWon * StadisticsInput.handicapLCL;

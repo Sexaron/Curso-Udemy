@@ -233,21 +233,29 @@ public class CalculateStadisticsMatch extends Application {
 		pr("\\---------------------------------");
 	}
 	
-	public boolean checkHandicap(int option) {
+	public boolean checkHandicap(int option1, int option2) {
 		
-		if(1 == option){
+		if(1 == option1){
 			if (probUnder < 55.00 && probUnder > 60.00) {
 				return true;
 			} else {
 				return false;
 			}
-		} else if(2 == option){
-			if (probTotalLCL > 55.00 && probTotalLCL < 65.00) { 
-				return true;
-			} else {
-				return false;
+		} else if(2 == option1){ //Según lo que estemos calculando, si % para LCL o VST, para que resulte más fácil
+			if(1==option2) {
+				if (probTotalLCL > 82.00 && probTotalLCL < 88.00) { 
+					return true;
+				} else {
+					return false;
+				}				
+			}else {
+				if (probTotalVST > 45.00 && probTotalVST < 55.00) { 
+					return true;
+				} else {
+					return false;
+				}				
 			}
-		} else if(3== option){
+		} else if(3== option1){
 			if ((probUnder < 55.00 && probUnder > 60.00) || (probTotalLCL > 43.00 && probTotalLCL < 57.00)) { 
 				return true;
 			} else {
